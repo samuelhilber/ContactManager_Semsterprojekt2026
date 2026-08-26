@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SemsterProjekt
 {
-    internal class Person
+    internal class Person //ist die Father class wovon Employee und Customer die selben Daten erben
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

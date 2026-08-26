@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SemsterProjekt
 {
-    internal class Employee : Person
+    internal class Employee : Person // die Klasse welche die Mitarbeiter Erstellt, erbt von Person
     {
         public int EmployeeNumber { get; init; }  // nur bei der Erstellung setzbar
         public Job Job { get; set; }
@@ -22,7 +22,7 @@ namespace SemsterProjekt
         public int? PlzBuisness { get; set; }
     }
 
-    public enum Job
+    public enum Job //Enum für Dropdown Abteilung/Anstellung
     {
         Spedition,
         Backoffice,
