@@ -11,14 +11,14 @@ namespace SemsterProjekt
         private static int _nextEmployeeNumber = 1;
 
         public int EmployeeNumber { get; init; }  // nur bei der Erstellung setzbar
-        public Job Job { get; set; }
+        public Job Job { get; set; } // via Dropdown Auswahl ist Fest und braucht keine Validierung, Greift auf Enums Job zu
         public string _AhvNumber;
-        public int ManagmentLevel { get; set; } = 0;
-        public string _Nationality;
-        public int _Employment { get; set; } = 100;
+        public int ManagmentLevel { get; set; } = 0; // via Dropdown Auswahl ist und Fest braucht keine Validierung
+        private string _Nationality;
+        private int _Employment;
         private DateOnly _EntryDate;
         private DateOnly? _ExitDate;
-        public bool Trainee { get; set; } = false;
+        public bool Trainee { get; set; } = false; // via Checkbox True/False Bools benötigen dadruch keine Validierung
         public string Adressprivat { get; set; } = string.Empty;
         public int Plzprivat { get; set; }
         public string Residance { get; set; } = string.Empty;
@@ -109,6 +109,8 @@ namespace SemsterProjekt
                 _ExitDate = value;
             }
         }
+
+
 
         public double LehrJahr() // berechnen von angezeigten Lehrjahre für die Lehrlinge
         {

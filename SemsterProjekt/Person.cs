@@ -15,8 +15,8 @@ namespace SemsterProjekt
         private string _MobilePhone = string.Empty;
         private string _BusinessPhone = string.Empty;
         private string _Email = string.Empty;
-        public bool IsActive { get; set; } = true;
-        public bool IsDeleted { get; set; } = false;
+        public bool IsActive { get; set; } = true; // wird via Checkbox gesetzt und braucht dadruch keine Validierung
+        public bool IsDeleted { get; set; } = false; // gleich wie IsActive
 
         public string FirstName
         {
