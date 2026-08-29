@@ -46,7 +46,6 @@
             DtEntryDate = new DateTimePicker();
             DtExitDate = new DateTimePicker();
             TxtEmployment = new TextBox();
-            CmbJob = new ComboBox();
             CmbManagmentLevel = new ComboBox();
             ChkTrainee = new CheckBox();
             TxtTraineeYear = new TextBox();
@@ -71,7 +70,6 @@
             LblEntry = new Label();
             LblExit = new Label();
             LblEmployment = new Label();
-            LblJob = new Label();
             LblManagementLevel = new Label();
             LblTrainee = new Label();
             LblTraineeYear = new Label();
@@ -157,7 +155,7 @@
             // 
             // TxtEmployeeNumber
             // 
-            TxtEmployeeNumber.Location = new Point(511, 253);
+            TxtEmployeeNumber.Location = new Point(511, 192);
             TxtEmployeeNumber.Name = "TxtEmployeeNumber";
             TxtEmployeeNumber.ReadOnly = true;
             TxtEmployeeNumber.Size = new Size(180, 23);
@@ -166,72 +164,64 @@
             // CmbDepartment
             // 
             CmbDepartment.FormattingEnabled = true;
-            CmbDepartment.Location = new Point(697, 253);
+            CmbDepartment.Location = new Point(697, 192);
             CmbDepartment.Name = "CmbDepartment";
             CmbDepartment.Size = new Size(180, 23);
             CmbDepartment.TabIndex = 11;
             // 
             // TxtAhvNumber
             // 
-            TxtAhvNumber.Location = new Point(883, 253);
+            TxtAhvNumber.Location = new Point(883, 192);
             TxtAhvNumber.Name = "TxtAhvNumber";
             TxtAhvNumber.Size = new Size(200, 23);
             TxtAhvNumber.TabIndex = 12;
             // 
             // TxtAdressPrivat
             // 
-            TxtAdressPrivat.Location = new Point(511, 303);
+            TxtAdressPrivat.Location = new Point(511, 242);
             TxtAdressPrivat.Name = "TxtAdressPrivat";
             TxtAdressPrivat.Size = new Size(180, 23);
             TxtAdressPrivat.TabIndex = 13;
             // 
             // TxtPlzPrivat
             // 
-            TxtPlzPrivat.Location = new Point(697, 303);
+            TxtPlzPrivat.Location = new Point(697, 242);
             TxtPlzPrivat.Name = "TxtPlzPrivat";
             TxtPlzPrivat.Size = new Size(100, 23);
             TxtPlzPrivat.TabIndex = 14;
             // 
             // TxtNationality
             // 
-            TxtNationality.Location = new Point(511, 405);
+            TxtNationality.Location = new Point(511, 344);
             TxtNationality.Name = "TxtNationality";
             TxtNationality.Size = new Size(180, 23);
             TxtNationality.TabIndex = 15;
             // 
             // DtEntryDate
             // 
-            DtEntryDate.Location = new Point(511, 458);
+            DtEntryDate.Location = new Point(511, 397);
             DtEntryDate.Name = "DtEntryDate";
             DtEntryDate.Size = new Size(200, 23);
             DtEntryDate.TabIndex = 16;
             // 
             // DtExitDate
             // 
-            DtExitDate.Location = new Point(721, 458);
+            DtExitDate.Location = new Point(721, 397);
             DtExitDate.Name = "DtExitDate";
             DtExitDate.Size = new Size(200, 23);
             DtExitDate.TabIndex = 17;
             // 
             // TxtEmployment
             // 
-            TxtEmployment.Location = new Point(511, 513);
+            TxtEmployment.Location = new Point(511, 452);
             TxtEmployment.Name = "TxtEmployment";
             TxtEmployment.Size = new Size(100, 23);
             TxtEmployment.TabIndex = 18;
             // 
-            // CmbJob
-            // 
-            CmbJob.FormattingEnabled = true;
-            CmbJob.Location = new Point(635, 513);
-            CmbJob.Name = "CmbJob";
-            CmbJob.Size = new Size(180, 23);
-            CmbJob.TabIndex = 19;
-            // 
             // CmbManagmentLevel
             // 
             CmbManagmentLevel.FormattingEnabled = true;
-            CmbManagmentLevel.Location = new Point(821, 513);
+            CmbManagmentLevel.Location = new Point(626, 452);
             CmbManagmentLevel.Name = "CmbManagmentLevel";
             CmbManagmentLevel.Size = new Size(65, 23);
             CmbManagmentLevel.TabIndex = 20;
@@ -239,7 +229,7 @@
             // ChkTrainee
             // 
             ChkTrainee.AutoSize = true;
-            ChkTrainee.Location = new Point(514, 556);
+            ChkTrainee.Location = new Point(514, 495);
             ChkTrainee.Name = "ChkTrainee";
             ChkTrainee.Size = new Size(108, 19);
             ChkTrainee.TabIndex = 21;
@@ -248,7 +238,7 @@
             // 
             // TxtTraineeYear
             // 
-            TxtTraineeYear.Location = new Point(635, 563);
+            TxtTraineeYear.Location = new Point(635, 502);
             TxtTraineeYear.Name = "TxtTraineeYear";
             TxtTraineeYear.ReadOnly = true;
             TxtTraineeYear.Size = new Size(100, 23);
@@ -264,6 +254,7 @@
             RadCustomer.TabStop = true;
             RadCustomer.Text = "Kunde";
             RadCustomer.UseVisualStyleBackColor = true;
+            RadCustomer.CheckedChanged += RadCustomer_CheckedChanged;
             // 
             // RadEmployee
             // 
@@ -275,6 +266,7 @@
             RadEmployee.TabStop = true;
             RadEmployee.Text = "Mitarbeiter";
             RadEmployee.UseVisualStyleBackColor = true;
+            RadEmployee.CheckedChanged += RadEmployee_CheckedChanged;
             // 
             // TxtOutput
             // 
@@ -293,6 +285,7 @@
             CmdSave.TabIndex = 26;
             CmdSave.Text = "Save";
             CmdSave.UseVisualStyleBackColor = true;
+            CmdSave.Click += CmdSave_Click;
             // 
             // LblFirstName
             // 
@@ -369,7 +362,7 @@
             // LblEmployeeNumber
             // 
             LblEmployeeNumber.AutoSize = true;
-            LblEmployeeNumber.Location = new Point(511, 235);
+            LblEmployeeNumber.Location = new Point(511, 174);
             LblEmployeeNumber.Name = "LblEmployeeNumber";
             LblEmployeeNumber.Size = new Size(111, 15);
             LblEmployeeNumber.TabIndex = 36;
@@ -378,7 +371,7 @@
             // LblDepartment
             // 
             LblDepartment.AutoSize = true;
-            LblDepartment.Location = new Point(697, 235);
+            LblDepartment.Location = new Point(697, 174);
             LblDepartment.Name = "LblDepartment";
             LblDepartment.Size = new Size(59, 15);
             LblDepartment.TabIndex = 37;
@@ -387,7 +380,7 @@
             // LblAhvNumber
             // 
             LblAhvNumber.AutoSize = true;
-            LblAhvNumber.Location = new Point(883, 235);
+            LblAhvNumber.Location = new Point(883, 174);
             LblAhvNumber.Name = "LblAhvNumber";
             LblAhvNumber.Size = new Size(82, 15);
             LblAhvNumber.TabIndex = 38;
@@ -396,7 +389,7 @@
             // LblAdressPrivat
             // 
             LblAdressPrivat.AutoSize = true;
-            LblAdressPrivat.Location = new Point(511, 285);
+            LblAdressPrivat.Location = new Point(511, 224);
             LblAdressPrivat.Name = "LblAdressPrivat";
             LblAdressPrivat.Size = new Size(76, 15);
             LblAdressPrivat.TabIndex = 39;
@@ -405,7 +398,7 @@
             // LblPlzPrivat
             // 
             LblPlzPrivat.AutoSize = true;
-            LblPlzPrivat.Location = new Point(697, 285);
+            LblPlzPrivat.Location = new Point(697, 224);
             LblPlzPrivat.Name = "LblPlzPrivat";
             LblPlzPrivat.Size = new Size(67, 15);
             LblPlzPrivat.TabIndex = 40;
@@ -414,7 +407,7 @@
             // LblNationality
             // 
             LblNationality.AutoSize = true;
-            LblNationality.Location = new Point(511, 387);
+            LblNationality.Location = new Point(511, 326);
             LblNationality.Name = "LblNationality";
             LblNationality.Size = new Size(69, 15);
             LblNationality.TabIndex = 41;
@@ -423,7 +416,7 @@
             // LblEntry
             // 
             LblEntry.AutoSize = true;
-            LblEntry.Location = new Point(514, 437);
+            LblEntry.Location = new Point(514, 376);
             LblEntry.Name = "LblEntry";
             LblEntry.Size = new Size(42, 15);
             LblEntry.TabIndex = 42;
@@ -432,7 +425,7 @@
             // LblExit
             // 
             LblExit.AutoSize = true;
-            LblExit.Location = new Point(721, 440);
+            LblExit.Location = new Point(721, 379);
             LblExit.Name = "LblExit";
             LblExit.Size = new Size(54, 15);
             LblExit.TabIndex = 43;
@@ -441,25 +434,16 @@
             // LblEmployment
             // 
             LblEmployment.AutoSize = true;
-            LblEmployment.Location = new Point(514, 495);
+            LblEmployment.Location = new Point(514, 434);
             LblEmployment.Name = "LblEmployment";
             LblEmployment.Size = new Size(93, 15);
             LblEmployment.TabIndex = 44;
             LblEmployment.Text = "Anstellungsgrad";
             // 
-            // LblJob
-            // 
-            LblJob.AutoSize = true;
-            LblJob.Location = new Point(635, 495);
-            LblJob.Name = "LblJob";
-            LblJob.Size = new Size(40, 15);
-            LblJob.TabIndex = 45;
-            LblJob.Text = "Rollen";
-            // 
             // LblManagementLevel
             // 
             LblManagementLevel.AutoSize = true;
-            LblManagementLevel.Location = new Point(821, 495);
+            LblManagementLevel.Location = new Point(626, 434);
             LblManagementLevel.Name = "LblManagementLevel";
             LblManagementLevel.Size = new Size(63, 15);
             LblManagementLevel.TabIndex = 46;
@@ -476,7 +460,7 @@
             // LblTraineeYear
             // 
             LblTraineeYear.AutoSize = true;
-            LblTraineeYear.Location = new Point(635, 545);
+            LblTraineeYear.Location = new Point(635, 484);
             LblTraineeYear.Name = "LblTraineeYear";
             LblTraineeYear.Size = new Size(50, 15);
             LblTraineeYear.TabIndex = 48;
@@ -490,6 +474,7 @@
             CmdDelete.TabIndex = 49;
             CmdDelete.Text = "Löschen";
             CmdDelete.UseVisualStyleBackColor = true;
+            CmdDelete.Click += CmdDelete_Click;
             // 
             // TxtPhoneNumberBuisness
             // 
@@ -510,7 +495,7 @@
             // LblAdressBuisness
             // 
             LblAdressBuisness.AutoSize = true;
-            LblAdressBuisness.Location = new Point(510, 337);
+            LblAdressBuisness.Location = new Point(510, 276);
             LblAdressBuisness.Name = "LblAdressBuisness";
             LblAdressBuisness.Size = new Size(97, 15);
             LblAdressBuisness.TabIndex = 52;
@@ -518,14 +503,14 @@
             // 
             // TxtAdressBuisness
             // 
-            TxtAdressBuisness.Location = new Point(511, 357);
+            TxtAdressBuisness.Location = new Point(511, 296);
             TxtAdressBuisness.Name = "TxtAdressBuisness";
             TxtAdressBuisness.Size = new Size(180, 23);
             TxtAdressBuisness.TabIndex = 53;
             // 
             // TxtPlzBuisness
             // 
-            TxtPlzBuisness.Location = new Point(697, 357);
+            TxtPlzBuisness.Location = new Point(697, 296);
             TxtPlzBuisness.Name = "TxtPlzBuisness";
             TxtPlzBuisness.Size = new Size(100, 23);
             TxtPlzBuisness.TabIndex = 54;
@@ -533,7 +518,7 @@
             // LblPlzBuisness
             // 
             LblPlzBuisness.AutoSize = true;
-            LblPlzBuisness.Location = new Point(697, 337);
+            LblPlzBuisness.Location = new Point(697, 276);
             LblPlzBuisness.Name = "LblPlzBuisness";
             LblPlzBuisness.Size = new Size(67, 15);
             LblPlzBuisness.TabIndex = 55;
@@ -542,7 +527,7 @@
             // LblResidence
             // 
             LblResidence.AutoSize = true;
-            LblResidence.Location = new Point(803, 285);
+            LblResidence.Location = new Point(803, 224);
             LblResidence.Name = "LblResidence";
             LblResidence.Size = new Size(54, 15);
             LblResidence.TabIndex = 56;
@@ -550,7 +535,7 @@
             // 
             // TxtResidence
             // 
-            TxtResidence.Location = new Point(803, 303);
+            TxtResidence.Location = new Point(803, 242);
             TxtResidence.Name = "TxtResidence";
             TxtResidence.Size = new Size(180, 23);
             TxtResidence.TabIndex = 57;
@@ -572,7 +557,6 @@
             Controls.Add(LblTraineeYear);
             Controls.Add(LblTrainee);
             Controls.Add(LblManagementLevel);
-            Controls.Add(LblJob);
             Controls.Add(LblEmployment);
             Controls.Add(LblExit);
             Controls.Add(LblEntry);
@@ -597,7 +581,6 @@
             Controls.Add(TxtTraineeYear);
             Controls.Add(ChkTrainee);
             Controls.Add(CmbManagmentLevel);
-            Controls.Add(CmbJob);
             Controls.Add(TxtEmployment);
             Controls.Add(DtExitDate);
             Controls.Add(DtEntryDate);
@@ -642,7 +625,6 @@
         private DateTimePicker DtEntryDate;
         private DateTimePicker DtExitDate;
         private TextBox TxtEmployment;
-        private ComboBox CmbJob;
         private ComboBox CmbManagmentLevel;
         private CheckBox ChkTrainee;
         private TextBox TxtTraineeYear;
@@ -667,7 +649,6 @@
         private Label LblEntry;
         private Label LblExit;
         private Label LblEmployment;
-        private Label LblJob;
         private Label LblManagementLevel;
         private Label LblTrainee;
         private Label LblTraineeYear;

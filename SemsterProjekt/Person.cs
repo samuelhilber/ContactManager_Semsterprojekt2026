@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
@@ -9,91 +9,85 @@ namespace SemsterProjekt
 {
     internal class Person //ist die Father class wovon Employee und Customer die selben Daten erben
     {
-        private string _FirstName = string.Empty;
-        private string _LastName = string.Empty;
-        private DateOnly _BirthDate;
-        private string _MobilePhone = string.Empty;
-        private string _BusinessPhone = string.Empty;
-        private string _Email = string.Empty;
+        private string _firstName = string.Empty;
+        private string _lastName = string.Empty;
+        private DateOnly _birthDate;
+        private string _mobilePhone = string.Empty;
+        private string _businessPhone = string.Empty;
+        private string _email = string.Empty;
         public bool IsActive { get; set; } = true; // wird via Checkbox gesetzt und braucht dadruch keine Validierung
         public bool IsDeleted { get; set; } = false; // gleich wie IsActive
 
         public string FirstName
         {
-            get => _FirstName;
+            get => _firstName;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat 
+                if (string.IsNullOrWhiteSpace(value)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
                 {
                     throw new ArgumentException("Vorname darf nicht leer sein.");
                 }
                 string cleaned = Regex.Replace(value, @"[0-9]", ""); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
-                _FirstName = cleaned.Trim();
+                _firstName = cleaned.Trim();
             }
         }
 
         public string LastName
         {
-            get => _LastName;
+            get => _lastName;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat 
+                if (string.IsNullOrWhiteSpace(value)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
                 {
-                    throw new ArgumentException("Vorname darf nicht leer sein.");
+                    throw new ArgumentException("Nachname darf nicht leer sein.");
                 }
-                string cleaned = Regex.Replace(value, @"[0-9]", ""); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert 
-                _LastName = cleaned.Trim();
+                string cleaned = Regex.Replace(value, @"[0-9]", ""); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
+                _lastName = cleaned.Trim();
             }
         }
 
         public DateOnly BirthDate
         {
-            
-            get => _BirthDate;
+
+            get => _birthDate;
             set
             {
                 if (value > DateOnly.FromDateTime(DateTime.Today))
                 {
                     throw new ArgumentException("Geburtsdarum darf nicht in der Zukunft liegen");
                 }
-                _BirthDate = value;
+                _birthDate = value;
             }
         }
 
         public string MobilePhone // 089 123 12 12
         {
-            get => _MobilePhone;
+            get => _mobilePhone;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) 
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Mobiletelefonnummer darf nicht leer bleiben.");
                 }
 
-                string cleanedone = Regex.Replace(value, @"A-Z", ""); // Entfernt Buchstaben          
+                string cleanedone = Regex.Replace(value, @"A-Z", ""); // Entfernt Buchstaben
                 string cleaned = Regex.Replace(cleanedone, @"\s+", " ").Trim(); // ersetzt zuerst mehrere Leerzeichen und ersetzt diese druch ein leerzeichen und trim schneidet den start und das ende ab so ist eine Telefon Nummer nicht länger als 13
-                
+
 
                 if (cleaned.Length > 13 )
                 {
                     throw new ArgumentException("Zu viele Ziffern verwendet");
                 }
-                _MobilePhone = cleaned;
+                _mobilePhone = cleaned;
             }
         }
 
         public string BusinessPhone // 089 123 12 12
         {
-            get => _BusinessPhone;
+            get => _businessPhone;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) //da diese Angabe Optional ist wird geschaut ob ausversehen ein leerzeichen gesetzt wird, ist das der fall wird der String.Empty gesetzt dadruch kann der Rest übersprungen werden 
-                {
-                    _BusinessPhone = string.Empty;
-                    return;
-                }
-
-                string cleanedone = Regex.Replace(value, @"a-zA-Z", ""); // Entfernt Buchstaben          
+                string cleanedone = Regex.Replace(value, @"a-zA-Z", ""); // Entfernt Buchstaben
                 string cleaned = Regex.Replace(cleanedone, @"\s+", " ").Trim(); // ersetzt zuerst mehrere Leerzeichen und ersetzt diese druch ein leerzeichen und trim schneidet den start und das ende ab so ist eine Telefon Nummer nicht länger als 13
 
 
@@ -101,13 +95,13 @@ namespace SemsterProjekt
                 {
                     throw new ArgumentException("Zu viele Ziffern verwendet");
                 }
-                _BusinessPhone = cleaned;
+                _businessPhone = cleaned;
             }
         }
 
         public string Email
         {
-            get => _Email;
+            get => _email;
             set
             {
                 if (value == null) // Basic check ob es leer bleibt
@@ -125,8 +119,20 @@ namespace SemsterProjekt
                     throw new ArgumentException("Ungültiges E-Mail Format.");
                 }
 
-                _Email = value;
+                _email = value;
             }
+        }
+
+        public override string ToString()
+        {
+            string text = "Vorname: " + FirstName + "\r\n";
+            text += "Nachname: " + LastName + "\r\n";
+            text += "Geburtsdatum: " + BirthDate + "\r\n";
+            text += "Mobiltelefon: " + MobilePhone + "\r\n";
+            text += "Telefon Geschäft: " + BusinessPhone + "\r\n";
+            text += "Email: " + Email + "\r\n";
+            text += "Aktiv: " + IsActive;
+            return text;
         }
     }
 }
