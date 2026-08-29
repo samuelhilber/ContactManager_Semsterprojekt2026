@@ -1,3 +1,0 @@
-﻿# ContactManager_Semsterprojekt2026
-
-test
