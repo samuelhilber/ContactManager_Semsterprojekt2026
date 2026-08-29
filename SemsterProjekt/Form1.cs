@@ -3,11 +3,23 @@ namespace SemsterProjekt
     public partial class Form1 : Form
     {
         private EmployeeManager _employeeManager = new EmployeeManager();
+        private readonly List<Customer> _customers = new List<Customer>();
 
         public Form1()
         {
             InitializeComponent();
+
             TxtOutput.Click += TxtOutput_Click;
+            TxtOutput.ReadOnly = true;
+            TxtOutput.WordWrap = false;
+            TxtOutput.ScrollBars = ScrollBars.Both;
+            TxtOutput.Font = new Font("Consolas", 10);
+
+            // lese Werte aus Enums aus für Dropdown auswahl im Programm
+            CmbSalutation.DataSource = Enum.GetValues<Salutation>();
+            CmbGender.DataSource = Enum.GetValues<Gender>();
+            CmbTitle.DataSource = Enum.GetValues<Title>();
+
             CmbDepartment.DataSource = Enum.GetValues(typeof(Job));
             CmbDepartment.SelectedIndex = 0;
             CmbManagmentLevel.DataSource = Enumerable.Range(0, 5).ToList(); // 0,1,2,3,4
@@ -17,6 +29,23 @@ namespace SemsterProjekt
 
         private void CmdSave_Click(object sender, EventArgs e)
         {
+            if (RadCustomer.Checked)
+            {
+                var customer = CreateCustomer(out var customerErrors);
+                if (customer == null)
+                {
+                    MessageBox.Show(string.Join(Environment.NewLine, customerErrors), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    _customers.Add(customer);
+                    MessageBox.Show("Kunde erfolgreich erstellt!", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                RefreshList();
+                return;
+            }
+
             DateOnly birthDate = DateOnly.FromDateTime(DtBirthday.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
             DateOnly entryDate = DateOnly.FromDateTime(DtEntryDate.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
             DateOnly exitDate = DateOnly.FromDateTime(DtExitDate.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
@@ -54,6 +83,30 @@ namespace SemsterProjekt
             }
 
             RefreshList();
+        }
+
+        private Customer? CreateCustomer(out List<string> errors)
+        {
+            var customer = new Customer();
+            errors = new List<string>();
+
+            try { customer.FirstName = TxtFirstName.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { customer.LastName = TxtLastName.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { customer.BirthDate = DateOnly.FromDateTime(DtBirthday.Value); } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { customer.MobilePhone = TxtPhoneNumberPrivate.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { customer.BusinessPhone = TxtPhoneNumberBuisness.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { customer.Email = TxtEmail.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            customer.IsActive = ChkActive.Checked;
+            customer.Salutation = (Salutation)CmbSalutation.SelectedItem!;
+            customer.Gender = (Gender)CmbGender.SelectedItem!;
+            customer.Title = (Title)CmbTitle.SelectedItem!;
+
+            if (errors.Count > 0)
+            {
+                return null;
+            }
+
+            return customer;
         }
 
         private void TxtOutput_Click(object sender, EventArgs e)
@@ -135,7 +188,8 @@ namespace SemsterProjekt
         private void RefreshList()
         {
             var allEmployees = _employeeManager.GetAll();
-            var lines = allEmployees.Select(m => $"{m.FirstName} {m.LastName}");
+            var lines = allEmployees.Select(m => $"Mitarbeiter: {m.FirstName} {m.LastName}")
+                .Concat(_customers.Select(c => $"Kunde: {c.FirstName} {c.LastName}"));
             TxtOutput.Text = string.Join("\r\n", lines);
         }
 
