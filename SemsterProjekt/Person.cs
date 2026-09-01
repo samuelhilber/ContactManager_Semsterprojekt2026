@@ -23,12 +23,13 @@ namespace SemsterProjekt
             get => _firstName;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
+                string cleaned = Regex.Replace(value, @"[0-9]", "").Trim(); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
+                if (string.IsNullOrWhiteSpace(cleaned)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
                 {
-                    throw new ArgumentException("Vorname darf nicht leer sein.");
+                    throw new ArgumentException("Vorname ist leer oder flasch");
                 }
-                string cleaned = Regex.Replace(value, @"[0-9]", ""); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
-                _firstName = cleaned.Trim();
+                _firstName = cleaned;
+                
             }
         }
 
@@ -37,12 +38,12 @@ namespace SemsterProjekt
             get => _lastName;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
+                string cleaned = Regex.Replace(value, @"[0-9]", "").Trim(); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
+                if (string.IsNullOrWhiteSpace(cleaned)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
                 {
-                    throw new ArgumentException("Nachname darf nicht leer sein.");
-                }
-                string cleaned = Regex.Replace(value, @"[0-9]", ""); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
-                _lastName = cleaned.Trim();
+                    throw new ArgumentException("Nachname ist leer oder flasch");
+                }                
+                _lastName = cleaned;
             }
         }
 
@@ -65,19 +66,19 @@ namespace SemsterProjekt
             get => _mobilePhone;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                string cleanedOne = Regex.Replace(value, @"[a-zA-Z]", ""); // Entfernt Buchstaben
+                string cleaned = Regex.Replace(cleanedOne, @"\s+", " ").Trim(); // ersetzt zuerst mehrere Leerzeichen und ersetzt diese druch ein leerzeichen und trim schneidet den start und das ende ab so ist eine Telefon Nummer nicht länger als 13
+
+                if (string.IsNullOrWhiteSpace(cleaned))
                 {
                     throw new ArgumentException("Mobiletelefonnummer darf nicht leer bleiben.");
-                }
-
-                string cleanedone = Regex.Replace(value, @"A-Z", ""); // Entfernt Buchstaben
-                string cleaned = Regex.Replace(cleanedone, @"\s+", " ").Trim(); // ersetzt zuerst mehrere Leerzeichen und ersetzt diese druch ein leerzeichen und trim schneidet den start und das ende ab so ist eine Telefon Nummer nicht länger als 13
-
-
-                if (cleaned.Length > 13 )
+                }      
+                
+                if (cleaned.Length != 13 )
                 {
-                    throw new ArgumentException("Zu viele Ziffern verwendet");
+                    throw new ArgumentException("Ungültige Mobiltelefonnummer");
                 }
+
                 _mobilePhone = cleaned;
             }
         }
@@ -87,13 +88,12 @@ namespace SemsterProjekt
             get => _businessPhone;
             set
             {
-                string cleanedone = Regex.Replace(value, @"a-zA-Z", ""); // Entfernt Buchstaben
+                string cleanedone = Regex.Replace(value, @"[a-zA-Z]", ""); // Entfernt Buchstaben
                 string cleaned = Regex.Replace(cleanedone, @"\s+", " ").Trim(); // ersetzt zuerst mehrere Leerzeichen und ersetzt diese druch ein leerzeichen und trim schneidet den start und das ende ab so ist eine Telefon Nummer nicht länger als 13
 
-
-                if (cleaned.Length > 13)
+                if (cleaned.Length != 13)
                 {
-                    throw new ArgumentException("Zu viele Ziffern verwendet");
+                    throw new ArgumentException("Ungültige Firmentelefonnummer");
                 }
                 _businessPhone = cleaned;
             }

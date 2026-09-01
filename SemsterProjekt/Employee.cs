@@ -54,11 +54,11 @@ namespace SemsterProjekt
             get => _nationality;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                string cleaned = Regex.Replace(value, @"[1-9]", "").Trim(); // Es gibt keinne Nummern in Länder Namen / Nationalitäten
+                if (string.IsNullOrWhiteSpace(cleaned))
                 {
                     throw new ArgumentException("Die Nationalität muss ausgefüllt werden");
                 }
-                string cleaned = Regex.Replace(value, @"1-9", "").Trim(); // Es gibt keinne Nummern in Länder Namen / Nationalitäten
                 _nationality = cleaned;
             }
         }
