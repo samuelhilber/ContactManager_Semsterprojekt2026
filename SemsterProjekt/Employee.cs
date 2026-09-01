@@ -60,11 +60,11 @@ namespace SemsterProjekt
             get => _nationality;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                string cleaned = Regex.Replace(value, @"[1-9]", "").Trim(); // Es gibt keinne Nummern in Länder Namen / Nationalitäten
+                if (string.IsNullOrWhiteSpace(cleaned))
                 {
                     throw new ArgumentException("Die Nationalität muss ausgefüllt werden");
                 }
-                string cleaned = Regex.Replace(value, @"1-9", "").Trim(); // Es gibt keinne Nummern in Länder Namen / Nationalitäten
                 _nationality = cleaned;
             }
         }
@@ -227,7 +227,7 @@ namespace SemsterProjekt
             }
             int tage = ExitDate.Value.DayNumber - EntryDate.DayNumber;
             int jahre = tage / 365;
-            return jahre+1;
+            return jahre + 1;
         }
 
         public override string ToString()
@@ -260,5 +260,5 @@ namespace SemsterProjekt
         Aussendienst
     }
 
-   
+
 }
