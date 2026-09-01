@@ -3,7 +3,9 @@ namespace SemsterProjekt
     public partial class Form1 : Form
     {
         private EmployeeManager _employeeManager = new EmployeeManager();
-        private readonly List<Customer> _customers = new List<Customer>();
+        private CustomerManager _customerManager = new CustomerManager();
+        private Employee? _selectedEmployee;
+        private Customer? _selectedCustomer;
 
         private readonly DataStorage _datastorage = new DataStorage();
 
@@ -31,24 +33,6 @@ namespace SemsterProjekt
 
         private void CmdSave_Click(object sender, EventArgs e)
         {
-            if (RadCustomer.Checked)
-            {
-                var customer = CreateCustomer(out var customerErrors);
-                if (customer == null)
-                {
-                    MessageBox.Show(string.Join(Environment.NewLine, customerErrors), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    _customers.Add(customer);
-                    SaveData();
-                    MessageBox.Show("Kunde erfolgreich erstellt!", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                RefreshList();
-                return;
-            }
-
             DateOnly birthDate = DateOnly.FromDateTime(DtBirthday.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
             DateOnly entryDate = DateOnly.FromDateTime(DtEntryDate.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
             DateOnly exitDate = DateOnly.FromDateTime(DtExitDate.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
@@ -56,6 +40,34 @@ namespace SemsterProjekt
             int.TryParse(TxtEmployment.Text, out int employment); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
             int.TryParse(TxtPlzBuisness.Text, out int businessPostalCode); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
 
+            if (RadCustomer.Checked)
+            {
+                var customer = _customerManager.AddCustomer(
+                    TxtFirstName.Text,
+                    TxtLastName.Text,
+                    DateOnly.FromDateTime(DtBirthday.Value),
+                    TxtPhoneNumberPrivate.Text,
+                    TxtEmail.Text,
+                    TxtPhoneNumberBuisness.Text,
+                    (Salutation)CmbSalutation.SelectedItem!,
+                    (Gender)CmbGender.SelectedItem!,
+                    (Title)CmbTitle.SelectedItem!,
+                    out var customerErrors);
+
+                if (customer == null)
+                {
+                    MessageBox.Show(string.Join(Environment.NewLine, customerErrors), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    SaveData();
+                    MessageBox.Show("Kunde erfolgreich erstellt!", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                RefreshList();
+                return;
+            }
+            
             var employee = _employeeManager.AddEmployee(
                 TxtFirstName.Text,
                 TxtLastName.Text,
@@ -74,6 +86,7 @@ namespace SemsterProjekt
                 TxtAdressBuisness.Text,
                 businessPostalCode,
                 TxtNationality.Text,
+                ChkTrainee.Checked,
                 out var errors);
 
             if (employee == null)
@@ -89,71 +102,73 @@ namespace SemsterProjekt
             RefreshList();
         }
 
-        private Customer? CreateCustomer(out List<string> errors)
-        {
-            var customer = new Customer();
-            errors = new List<string>();
-
-            try { customer.FirstName = TxtFirstName.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { customer.LastName = TxtLastName.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { customer.BirthDate = DateOnly.FromDateTime(DtBirthday.Value); } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { customer.MobilePhone = TxtPhoneNumberPrivate.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { customer.BusinessPhone = TxtPhoneNumberBuisness.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { customer.Email = TxtEmail.Text; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            customer.IsActive = ChkActive.Checked;
-            customer.Salutation = (Salutation)CmbSalutation.SelectedItem!;
-            customer.Gender = (Gender)CmbGender.SelectedItem!;
-            customer.Title = (Title)CmbTitle.SelectedItem!;
-
-            if (errors.Count > 0)
-            {
-                return null;
-            }
-
-            return customer;
-        }
-
         private void TxtOutput_Click(object sender, EventArgs e)
         {
             int lineIndex = TxtOutput.GetLineFromCharIndex(TxtOutput.SelectionStart);
-            var allEmployees = _employeeManager.GetAll();
+            var allEmployees = _employeeManager.GetAllActive();
+            var allCustomers = _customerManager.GetAllActive();
 
-            if (lineIndex < 0 || lineIndex >= allEmployees.Count)
+            if (lineIndex < 0 || lineIndex >= allEmployees.Count + allCustomers.Count)
             {
                 return;
             }
 
-            var selectedEmployee = allEmployees[lineIndex];
-            TxtFirstName.Text = selectedEmployee.FirstName;
-            TxtLastName.Text = selectedEmployee.LastName;
-            TxtPhoneNumberPrivate.Text = selectedEmployee.MobilePhone;
-            TxtPhoneNumberBuisness.Text = selectedEmployee.BusinessPhone;
-            TxtEmail.Text = selectedEmployee.Email;
-            DtBirthday.Value = selectedEmployee.BirthDate.ToDateTime(TimeOnly.MinValue);
-            TxtAhvNumber.Text = selectedEmployee.AhvNumber;
-            TxtNationality.Text = selectedEmployee.Nationality;
-            TxtEmployment.Text = selectedEmployee.Employment.ToString();
-            DtEntryDate.Value = selectedEmployee.EntryDate.ToDateTime(TimeOnly.MinValue);
-            if (selectedEmployee.ExitDate != null)
+            if (lineIndex < allEmployees.Count)
             {
-                DtExitDate.Value = selectedEmployee.ExitDate.Value.ToDateTime(TimeOnly.MinValue);
-            }
-            CmbDepartment.SelectedItem = selectedEmployee.Job;
-            CmbManagmentLevel.SelectedItem = selectedEmployee.ManagementLevel;
-            ChkTrainee.Checked = selectedEmployee.Trainee;
-            TxtAdressPrivat.Text = selectedEmployee.PrivateAddress;
-            TxtPlzPrivat.Text = selectedEmployee.PrivatePostalCode.ToString();
-            TxtResidence.Text = selectedEmployee.Residence;
-            TxtAdressBuisness.Text = selectedEmployee.BusinessAddress;
-            TxtPlzBuisness.Text = selectedEmployee.BusinessPostalCode.ToString();
-            TxtEmployeeNumber.Text = selectedEmployee.EmployeeNumber.ToString();
+                RadEmployee.Checked = true;
 
-            if (ChkTrainee.Checked)
+                var selectedEmployee = allEmployees[lineIndex];
+                _selectedEmployee = selectedEmployee;
+                _selectedCustomer = null;
+                TxtFirstName.Text = selectedEmployee.FirstName;
+                TxtLastName.Text = selectedEmployee.LastName;
+                TxtPhoneNumberPrivate.Text = selectedEmployee.MobilePhone;
+                TxtPhoneNumberBuisness.Text = selectedEmployee.BusinessPhone;
+                TxtEmail.Text = selectedEmployee.Email;
+                DtBirthday.Value = selectedEmployee.BirthDate.ToDateTime(TimeOnly.MinValue);
+                TxtAhvNumber.Text = selectedEmployee.AhvNumber;
+                TxtNationality.Text = selectedEmployee.Nationality;
+                TxtEmployment.Text = selectedEmployee.Employment.ToString();
+                DtEntryDate.Value = selectedEmployee.EntryDate.ToDateTime(TimeOnly.MinValue);
+                if (selectedEmployee.ExitDate != null)
+                {
+                    DtExitDate.Value = selectedEmployee.ExitDate.Value.ToDateTime(TimeOnly.MinValue);
+                }
+                CmbDepartment.SelectedItem = selectedEmployee.Job;
+                CmbManagmentLevel.SelectedItem = selectedEmployee.ManagementLevel;
+                ChkTrainee.Checked = selectedEmployee.Trainee;
+                TxtAdressPrivat.Text = selectedEmployee.PrivateAddress;
+                TxtPlzPrivat.Text = selectedEmployee.PrivatePostalCode.ToString();
+                TxtResidence.Text = selectedEmployee.Residence;
+                TxtAdressBuisness.Text = selectedEmployee.BusinessAddress;
+                TxtPlzBuisness.Text = selectedEmployee.BusinessPostalCode.ToString();
+                TxtEmployeeNumber.Text = selectedEmployee.EmployeeNumber.ToString();
+                ChkActive.Checked = selectedEmployee.IsActive;
+
+                if (ChkTrainee.Checked)
+                {
+                    string TraineeYears = selectedEmployee.ApprenticeshipYear().ToString();
+                    TxtTraineeYear.Text = TraineeYears;
+                }
+            }
+            else
             {
-                string TraineeYears = selectedEmployee.ApprenticeshipYear().ToString();
-                TxtTraineeYear.Text = TraineeYears;
-            }
+                RadCustomer.Checked = true;
 
+                var selectedCustomer = allCustomers[lineIndex - allEmployees.Count];
+                _selectedCustomer = selectedCustomer;
+                _selectedEmployee = null;
+                TxtFirstName.Text = selectedCustomer.FirstName;
+                TxtLastName.Text = selectedCustomer.LastName;
+                TxtPhoneNumberPrivate.Text = selectedCustomer.MobilePhone;
+                TxtPhoneNumberBuisness.Text = selectedCustomer.BusinessPhone;
+                TxtEmail.Text = selectedCustomer.Email;
+                DtBirthday.Value = selectedCustomer.BirthDate.ToDateTime(TimeOnly.MinValue);
+                CmbSalutation.SelectedItem = selectedCustomer.Salutation;
+                CmbGender.SelectedItem = selectedCustomer.Gender;
+                CmbTitle.SelectedItem = selectedCustomer.Title;
+                ChkActive.Checked = selectedCustomer.IsActive;
+            }
 
             int startIndex = TxtOutput.GetFirstCharIndexFromLine(lineIndex);
             string lineText = TxtOutput.Lines[lineIndex];
@@ -162,7 +177,25 @@ namespace SemsterProjekt
 
         private void CmdDelete_Click(object sender, EventArgs e)
         {
+            if (_selectedEmployee != null)
+            {
+                _selectedEmployee.IsDeleted = true;
+                _selectedEmployee = null;
+                MessageBox.Show("Mitarbeiter wurde gelöscht.", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (_selectedCustomer != null)
+            {
+                _selectedCustomer.IsDeleted = true;
+                _selectedCustomer = null;
+                MessageBox.Show("Kunde wurde gelöscht.", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Bitte zuerst einen Eintrag aus der Liste auswählen.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            RefreshList();
         }
 
         private void RadCustomer_CheckedChanged(object sender, EventArgs e)
@@ -191,9 +224,10 @@ namespace SemsterProjekt
 
         private void RefreshList()
         {
-            var allEmployees = _employeeManager.GetAll();
+            var allEmployees = _employeeManager.GetAllActive();
+            var allCustomers = _customerManager.GetAllActive();
             var lines = allEmployees.Select(m => $"Mitarbeiter: {m.FirstName} {m.LastName}")
-                .Concat(_customers.Select(c => $"Kunde: {c.FirstName} {c.LastName}"));
+                .Concat(allCustomers.Select(c => $"Kunde: {c.FirstName} {c.LastName}"));
             TxtOutput.Text = string.Join("\r\n", lines);
         }
 
@@ -203,7 +237,7 @@ namespace SemsterProjekt
             ContactData data = new ContactData
             {
                 Employees = _employeeManager.GetAll(),
-                Customers = _customers
+                Customers = _customerManager.GetAll()
             };
 
             _datastorage.Save(data); //Save Methode wandelt in JSON um und speichert auf Festplatte

@@ -221,7 +221,7 @@ namespace SemsterProjekt
             }
             int tage = ExitDate.Value.DayNumber - EntryDate.DayNumber;
             int jahre = tage / 365;
-            return jahre;
+            return jahre+1;
         }
 
         public override string ToString()
