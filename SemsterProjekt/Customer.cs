@@ -29,6 +29,7 @@ namespace SemsterProjekt
 
     public enum Title//Enum für Dropdown Titel
     {
+        None,
         Professor,
         Doktor
     }

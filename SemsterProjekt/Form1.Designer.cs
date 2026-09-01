@@ -82,6 +82,7 @@
             LblPlzBuisness = new Label();
             LblResidence = new Label();
             TxtResidence = new TextBox();
+            CmdUpdate = new Button();
             SuspendLayout();
             // 
             // TxtFirstName
@@ -274,7 +275,7 @@
             TxtOutput.Multiline = true;
             TxtOutput.Name = "TxtOutput";
             TxtOutput.ScrollBars = ScrollBars.Vertical;
-            TxtOutput.Size = new Size(493, 627);
+            TxtOutput.Size = new Size(493, 483);
             TxtOutput.TabIndex = 25;
             // 
             // CmdSave
@@ -468,7 +469,7 @@
             // 
             // CmdDelete
             // 
-            CmdDelete.Location = new Point(349, 13);
+            CmdDelete.Location = new Point(268, 13);
             CmdDelete.Name = "CmdDelete";
             CmdDelete.Size = new Size(75, 23);
             CmdDelete.TabIndex = 49;
@@ -540,11 +541,21 @@
             TxtResidence.Size = new Size(180, 23);
             TxtResidence.TabIndex = 57;
             // 
+            // CmdUpdate
+            // 
+            CmdUpdate.Location = new Point(349, 13);
+            CmdUpdate.Name = "CmdUpdate";
+            CmdUpdate.Size = new Size(75, 23);
+            CmdUpdate.TabIndex = 58;
+            CmdUpdate.Text = "Edit";
+            CmdUpdate.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1153, 693);
+            ClientSize = new Size(1153, 536);
+            Controls.Add(CmdUpdate);
             Controls.Add(TxtResidence);
             Controls.Add(LblResidence);
             Controls.Add(LblPlzBuisness);
@@ -661,5 +672,6 @@
         private Label LblPlzBuisness;
         private Label LblResidence;
         private TextBox TxtResidence;
+        private Button CmdUpdate;
     }
 }
