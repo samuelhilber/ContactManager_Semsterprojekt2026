@@ -24,7 +24,7 @@ namespace SemsterProjekt
             Customer newCustomer = new Customer();
             errors = new List<string>();
 
-            try { newCustomer.FirstName = firstName;  } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { newCustomer.FirstName = firstName; } catch (ArgumentException ex) { errors.Add(ex.Message); }
             try { newCustomer.LastName = lastName; } catch (ArgumentException ex) { errors.Add(ex.Message); }
             try { newCustomer.BirthDate = birthDate; } catch (ArgumentException ex) { errors.Add(ex.Message); }
             try { newCustomer.MobilePhone = mobilePhone; } catch (ArgumentException ex) { errors.Add(ex.Message); }
@@ -43,7 +43,7 @@ namespace SemsterProjekt
             return newCustomer;
         }
 
-        public List <Customer> GetAll()
+        public List<Customer> GetAll()
         {
             return _customerList;
         }
