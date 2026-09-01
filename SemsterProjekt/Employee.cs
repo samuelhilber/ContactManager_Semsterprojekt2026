@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+
 namespace SemsterProjekt
 {
     internal class Employee : Person // die Klasse welche die Mitarbeiter Erstellt, erbt von Person
     {
+
         private static int _nextEmployeeNumber = 1;
+        public static void SetNextEmployeeNumber(int nextNumber)
+        {
+            _nextEmployeeNumber = nextNumber;
+        }
 
         private string _ahvNumber;
         private string _nationality;

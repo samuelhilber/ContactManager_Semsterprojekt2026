@@ -41,23 +41,23 @@ namespace SemsterProjekt
             //Schreibt Text auf die Festplatte, Falls neue Mitarbeiter / Kunden ergänzt werden ersetzt der neue Text den alten
             File.WriteAllText(_filepath, json);
         }
-
         public ContactData Load()
         {
             if (!File.Exists(_filepath)) // prüft ob Json datei bereits existiert
             {
                 return new ContactData();
             }
+
             string json = File.ReadAllText(_filepath); //datei als string lesen
-            ContactData? data = JsonSerializer.Deserialize<ContactData>(json, _options); 
 
-            if (data != null)
-            {
-                return new ContactData();
-            }
+            ContactData? data =
+                JsonSerializer.Deserialize<ContactData>(
+                    json,
+                    _options);
 
-            return data;
+            return data ?? new ContactData();  // wenn data vorhanden ist gib data zurück, wenn null gib leeren Datenstamm zurück
         }
+
         public string FilePath
         {
             get => _filepath;

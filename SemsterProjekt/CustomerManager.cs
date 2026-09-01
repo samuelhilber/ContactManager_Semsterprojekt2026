@@ -48,6 +48,12 @@ namespace SemsterProjekt
             return _customerList;
         }
 
+        public void ReplaceAll(List<Customer> customers)
+        {
+            _customerList.Clear();
+            _customerList.AddRange(customers);
+        }
+
         public List<Customer> GetAllActive()
         {
             return _customerList.Where(c => !c.IsDeleted).ToList();
