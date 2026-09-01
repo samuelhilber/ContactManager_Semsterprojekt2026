@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SemsterProjekt
@@ -26,6 +27,7 @@ namespace SemsterProjekt
             string businessAddress,
             int businessPostalCode,
             string nationality,
+            bool trainee,
             out List<string> errors)
         {
             Employee newEmployee = new Employee();
@@ -48,6 +50,7 @@ namespace SemsterProjekt
             try { newEmployee.BusinessAddress = businessAddress; } catch (ArgumentException ex) { errors.Add(ex.Message); }
             try { newEmployee.BusinessPostalCode = businessPostalCode; } catch (ArgumentException ex) { errors.Add(ex.Message); }
             try { newEmployee.Nationality = nationality; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { newEmployee.Trainee = trainee; } catch (ArgumentException ex) { errors.Add(ex.Message); }
 
             if (errors.Count > 0)
             {
@@ -61,6 +64,11 @@ namespace SemsterProjekt
         public List<Employee> GetAll()
         {
             return _employeeList;
+        }
+
+        public List<Employee> GetAllActive()
+        {
+            return _employeeList.Where(m => !m.IsDeleted).ToList();
         }
     }
 }
