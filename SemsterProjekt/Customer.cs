@@ -10,9 +10,9 @@ namespace SemsterProjekt
         private Salutation _salutation;
         private Gender _gender { get; set; } // Dropdown ohne None Option, dadurch immer ein gültiger Wert und braucht keine Validierung
         public Title Title { get; set; } // None ist hier ein gültiger Wert (kein akademischer Titel vorhanden), braucht dadurch keine Validierung
-    
 
-    public Salutation Salutation
+
+        public Salutation Salutation
         {
             get => _salutation;
             set
@@ -24,14 +24,14 @@ namespace SemsterProjekt
                 _salutation = value;
             }
         }
-     public Gender Gender
+        public Gender Gender
         {
             get => _gender;
             set
             {
                 if (value == Gender.None) // Geschlecht ist Pflicht, None ist nur der nicht ausgewählte Default im Dropdown
                 {
-                    throw new ArgumentException("Bitte eine Geschlecht auswählen.");
+                    throw new ArgumentException("Bitte ein Geschlecht auswählen.");
                 }
                 _gender = value;
             }

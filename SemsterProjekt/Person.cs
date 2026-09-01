@@ -29,7 +29,7 @@ namespace SemsterProjekt
                     throw new ArgumentException("Vorname ist leer oder flasch");
                 }
                 _firstName = cleaned;
-                
+
             }
         }
 
@@ -42,7 +42,7 @@ namespace SemsterProjekt
                 if (string.IsNullOrWhiteSpace(cleaned)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
                 {
                     throw new ArgumentException("Nachname ist leer oder flasch");
-                }                
+                }
                 _lastName = cleaned;
             }
         }
@@ -72,9 +72,9 @@ namespace SemsterProjekt
                 if (string.IsNullOrWhiteSpace(cleaned))
                 {
                     throw new ArgumentException("Mobiletelefonnummer darf nicht leer bleiben.");
-                }      
-                
-                if (cleaned.Length != 13 )
+                }
+
+                if (cleaned.Length != 13)
                 {
                     throw new ArgumentException("Ungültige Mobiltelefonnummer");
                 }
