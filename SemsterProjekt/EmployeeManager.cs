@@ -62,5 +62,11 @@ namespace SemsterProjekt
         {
             return _employeeList;
         }
+
+        public void ReplaceAll(List<Employee> employees)
+        {
+            _employeeList.Clear(); //löscht 
+            _employeeList.AddRange(employees);
+        }
     }
 }

@@ -5,6 +5,8 @@ namespace SemsterProjekt
         private EmployeeManager _employeeManager = new EmployeeManager();
         private readonly List<Customer> _customers = new List<Customer>();
 
+        private readonly DataStorage _datastorage = new DataStorage();
+
         public Form1()
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace SemsterProjekt
                 else
                 {
                     _customers.Add(customer);
+                    SaveData();
                     MessageBox.Show("Kunde erfolgreich erstellt!", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -79,6 +82,7 @@ namespace SemsterProjekt
             }
             else
             {
+                SaveData();
                 MessageBox.Show("Mitarbeiter erfolgreich erstellt!", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
@@ -192,6 +196,19 @@ namespace SemsterProjekt
                 .Concat(_customers.Select(c => $"Kunde: {c.FirstName} {c.LastName}"));
             TxtOutput.Text = string.Join("\r\n", lines);
         }
+
+
+        private void SaveData()  // Methode erstellt Speichert Daten auf C:\Users\Benutzername\AppData\Local\SemsterProjekt\contact-data.json
+        {
+            ContactData data = new ContactData
+            {
+                Employees = _employeeManager.GetAll(),
+                Customers = _customers
+            };
+
+            _datastorage.Save(data); //Save Methode wandelt in JSON um und speichert auf Festplatte
+        }
+
 
         private Control[] EmployeeFields()
         {
