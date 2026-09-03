@@ -110,7 +110,8 @@ namespace SemsterProjekt
                     return;
                 }
 
-                if (value < DateOnly.FromDateTime(DateTime.Today)) //
+
+                if (value.Value < EntryDate) // Programm hat nicht gestartet 
                 {
                     throw new ArgumentException("Austritts Datum darf nicht in der Verganenheit liegen");
                 }
@@ -191,6 +192,7 @@ namespace SemsterProjekt
             {
                 if (value == 0)
                 {
+                    _businessPostalCode = 0;
                     return;
                 }
                 try

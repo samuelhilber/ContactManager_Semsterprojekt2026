@@ -43,6 +43,112 @@ namespace SemsterProjekt
             return newCustomer;
         }
 
+        public bool UpdateCustomer(
+            Customer customer,
+            string firstName,
+            string lastName,
+            DateOnly birthDate,
+            string mobilePhone,
+            string email,
+            string businessPhone,
+            Salutation salutation,
+            Gender gender,
+            Title title,
+            bool isActive,
+            out List<string> errors)
+        {
+            Customer updatedCustomer = new Customer();
+            errors = new List<string>();
+
+            try
+            {
+                updatedCustomer.FirstName = firstName;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+            try
+            {
+                updatedCustomer.LastName = lastName;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+            try
+            {
+                updatedCustomer.BirthDate = birthDate;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+            try
+            {
+                updatedCustomer.MobilePhone = mobilePhone;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+            try
+            {
+                updatedCustomer.Email = email;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+            try
+            {
+                updatedCustomer.BusinessPhone = businessPhone;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+            try
+            {
+                updatedCustomer.Salutation = salutation;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+
+            try
+            {
+                updatedCustomer.Gender = gender;
+            }
+            catch (ArgumentException ex)
+            {
+                errors.Add(ex.Message);
+            }
+
+            updatedCustomer.Title = title;
+            updatedCustomer.IsActive = isActive;
+
+            if (errors.Count > 0)
+            {
+                return false;
+            }
+
+            customer.FirstName = updatedCustomer.FirstName;
+            customer.LastName = updatedCustomer.LastName;
+            customer.BirthDate = updatedCustomer.BirthDate;
+            customer.MobilePhone = updatedCustomer.MobilePhone;
+            customer.Email = updatedCustomer.Email;
+            customer.BusinessPhone = updatedCustomer.BusinessPhone;
+            customer.Salutation = updatedCustomer.Salutation;
+            customer.Gender = updatedCustomer.Gender;
+            customer.Title = updatedCustomer.Title;
+            customer.IsActive = updatedCustomer.IsActive;
+
+            return true;
+        }
+
+
         public List<Customer> GetAll()
         {
             return _customerList;
@@ -58,5 +164,8 @@ namespace SemsterProjekt
         {
             return _customerList.Where(c => !c.IsDeleted).ToList();
         }
+
+        
+        
     }
 }

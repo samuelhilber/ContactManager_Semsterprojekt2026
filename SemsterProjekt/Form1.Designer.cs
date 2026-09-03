@@ -51,7 +51,7 @@
             TxtTraineeYear = new TextBox();
             RadCustomer = new RadioButton();
             RadEmployee = new RadioButton();
-            TxtOutput = new TextBox();
+            TxtOutput = new RichTextBox();
             CmdSave = new Button();
             LblFirstName = new Label();
             LblLastName = new Label();
@@ -274,7 +274,7 @@
             TxtOutput.Location = new Point(12, 42);
             TxtOutput.Multiline = true;
             TxtOutput.Name = "TxtOutput";
-            TxtOutput.ScrollBars = ScrollBars.Vertical;
+            TxtOutput.ScrollBars = RichTextBoxScrollBars.Vertical;
             TxtOutput.Size = new Size(493, 483);
             TxtOutput.TabIndex = 25;
             // 
@@ -320,7 +320,7 @@
             LblPhoneNumberPrivate.AutoSize = true;
             LblPhoneNumberPrivate.Location = new Point(511, 120);
             LblPhoneNumberPrivate.Name = "LblPhoneNumberPrivate";
-            LblPhoneNumberPrivate.Size = new Size(125, 15);
+            LblPhoneNumberPrivate.Size = new Size(124, 15);
             LblPhoneNumberPrivate.TabIndex = 30;
             LblPhoneNumberPrivate.Text = "Telefonnummer Privat";
             // 
@@ -356,7 +356,7 @@
             lblTitle.AutoSize = true;
             lblTitle.Location = new Point(883, 176);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(38, 15);
+            lblTitle.Size = new Size(37, 15);
             lblTitle.TabIndex = 35;
             lblTitle.Text = "Titel *";
             // 
@@ -489,7 +489,7 @@
             LblPhoneNumberBuisness.AutoSize = true;
             LblPhoneNumberBuisness.Location = new Point(697, 120);
             LblPhoneNumberBuisness.Name = "LblPhoneNumberBuisness";
-            LblPhoneNumberBuisness.Size = new Size(125, 15);
+            LblPhoneNumberBuisness.Size = new Size(124, 15);
             LblPhoneNumberBuisness.TabIndex = 51;
             LblPhoneNumberBuisness.Text = "Telefonnummer Firma";
             // 
@@ -549,6 +549,7 @@
             CmdUpdate.TabIndex = 58;
             CmdUpdate.Text = "Edit";
             CmdUpdate.UseVisualStyleBackColor = true;
+            CmdUpdate.Click += CmdUpdate_Click;
             // 
             // Form1
             // 
@@ -641,7 +642,7 @@
         private TextBox TxtTraineeYear;
         private RadioButton RadCustomer;
         private RadioButton RadEmployee;
-        private TextBox TxtOutput;
+        private RichTextBox TxtOutput;
         private Button CmdSave;
         private Label LblFirstName;
         private Label LblLastName;

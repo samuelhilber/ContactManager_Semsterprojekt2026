@@ -14,11 +14,10 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
-
         TxtOutput.Click += TxtOutput_Click;
         TxtOutput.ReadOnly = true;
         TxtOutput.WordWrap = false;
-        TxtOutput.ScrollBars = ScrollBars.Both;
+        TxtOutput.ScrollBars = RichTextBoxScrollBars.Both;
         TxtOutput.Font = new Font("Consolas", 10);
 
         // lese Werte aus Enums aus für Dropdown auswahl im Programm
@@ -35,7 +34,7 @@ public partial class Form1 : Form
         LoadData();
     }
 
-  
+
 
     private void CmdSave_Click(object sender, EventArgs e)
     {
@@ -73,7 +72,7 @@ public partial class Form1 : Form
             RefreshList();
             return;
         }
-        
+
         var employee = _employeeManager.AddEmployee(
             TxtFirstName.Text,
             TxtLastName.Text,
@@ -82,6 +81,7 @@ public partial class Form1 : Form
             TxtEmail.Text,
             TxtPhoneNumberBuisness.Text,
             (Job)CmbDepartment.SelectedItem,
+            Convert.ToInt32(CmbManagmentLevel.SelectedItem),
             TxtAhvNumber.Text,
             employment,
             entryDate,
@@ -227,14 +227,66 @@ public partial class Form1 : Form
             field.Visible = !RadEmployee.Checked;
         }
     }
-    
-    private void RefreshList()
+
+    private void RefreshList() //neue Refreshlist Methode, um aktiv / inaktiv visuell anzuzeigen können
     {
-        var allEmployees = _employeeManager.GetAllActive();
-        var allCustomers = _customerManager.GetAllActive();
-        var lines = allEmployees.Select(m => $"Mitarbeiter {m.EmployeeNumber}:  {m.FirstName} {m.LastName}")
-            .Concat(allCustomers.Select(c => $"Kunde: {c.FirstName} {c.LastName}"));
-        TxtOutput.Text = string.Join("\r\n", lines);
+        var allEmployees =
+            _employeeManager.GetAllActive();
+
+        var allCustomers =
+            _customerManager.GetAllActive();
+
+        TxtOutput.Clear();
+
+        foreach (Employee employee in allEmployees)
+        {
+            string text =
+                $"Mitarbeiter {employee.EmployeeNumber}: " +
+                $"{employee.FirstName} {employee.LastName}";
+
+            AppendContactLine(
+                text,
+                employee.IsActive);
+        }
+
+        foreach (Customer customer in allCustomers)
+        {
+            string text =
+                $"Kunde: {customer.FirstName} {customer.LastName}";
+
+            AppendContactLine(
+                text,
+                customer.IsActive);
+        }
+
+        TxtOutput.Select(0, 0);
+    }
+
+    //hilfsmethode um inaktive Kunden / Mitarbeiter grau anzuzeigen
+    private void AppendContactLine(string text, bool isActive)
+    {
+        if (!isActive)
+        {
+            text += " (inaktiv)";
+        }
+
+        int startPosition = TxtOutput.TextLength;  //merkt sich, wo neue Zeile beginnt
+
+        TxtOutput.AppendText(
+            text + Environment.NewLine);
+
+        TxtOutput.Select(
+            startPosition,
+            text.Length);
+
+        if (isActive)
+        {
+            TxtOutput.SelectionColor = Color.Black;
+        }
+        else
+        {
+            TxtOutput.SelectionColor = Color.Gray;
+        }
     }
 
 
@@ -324,5 +376,117 @@ public partial class Form1 : Form
             CmbSalutation, LblSalutation,
             CmbTitle, lblTitle
         };
+    }
+
+    private void CmdUpdate_Click(object sender, EventArgs e)
+    {
+        // Prüfen, ob ein Kunde ausgewählt wurde
+        if (_selectedCustomer != null)
+        {
+            bool success = _customerManager.UpdateCustomer(
+                _selectedCustomer,
+                TxtFirstName.Text,
+                TxtLastName.Text,
+                DateOnly.FromDateTime(DtBirthday.Value),
+                TxtPhoneNumberPrivate.Text,
+                TxtEmail.Text,
+                TxtPhoneNumberBuisness.Text,
+                (Salutation)CmbSalutation.SelectedItem!,
+                (Gender)CmbGender.SelectedItem!,
+                (Title)CmbTitle.SelectedItem!,
+                ChkActive.Checked,
+                out List<string> errors);
+
+            if (!success)
+            {
+                MessageBox.Show(
+                    string.Join(Environment.NewLine, errors),
+                    "Fehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            SaveData();
+            RefreshList();
+
+            MessageBox.Show(
+                "Kunde wurde erfolgreich bearbeitet.",
+                "Erfolg",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            return;
+        }
+
+        // Prüfen, ob ein Mitarbeiter ausgewählt wurde
+        if (_selectedEmployee != null)
+        {
+            int.TryParse(
+                TxtEmployment.Text,
+                out int employment);
+
+            int.TryParse(
+                TxtPlzPrivat.Text,
+                out int privatePostalCode);
+
+            int.TryParse(
+                TxtPlzBuisness.Text,
+                out int businessPostalCode);
+
+            bool success = _employeeManager.UpdateEmployee(
+                _selectedEmployee,
+                TxtFirstName.Text,
+                TxtLastName.Text,
+                DateOnly.FromDateTime(DtBirthday.Value),
+                TxtPhoneNumberPrivate.Text,
+                TxtEmail.Text,
+                TxtPhoneNumberBuisness.Text,
+                (Job)CmbDepartment.SelectedItem!,
+                Convert.ToInt32(CmbManagmentLevel.SelectedItem),
+                TxtAhvNumber.Text,
+                employment,
+                DateOnly.FromDateTime(DtEntryDate.Value),
+                DateOnly.FromDateTime(DtExitDate.Value),
+                TxtAdressPrivat.Text,
+                privatePostalCode,
+                TxtResidence.Text,
+                TxtAdressBuisness.Text,
+                businessPostalCode,
+                TxtNationality.Text,
+                ChkTrainee.Checked,
+                ChkActive.Checked,
+                out List<string> errors);
+
+            if (!success)
+            {
+                MessageBox.Show(
+                    string.Join(Environment.NewLine, errors),
+                    "Fehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            SaveData();
+            RefreshList();
+
+            MessageBox.Show(
+                "Mitarbeiter wurde erfolgreich bearbeitet.",
+                "Erfolg",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            return;
+        }
+
+        // Weder Kunde noch Mitarbeiter wurde ausgewählt
+        MessageBox.Show(
+            "Bitte zuerst einen Eintrag aus der Liste auswählen.",
+            "Fehler",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
     }
 }
