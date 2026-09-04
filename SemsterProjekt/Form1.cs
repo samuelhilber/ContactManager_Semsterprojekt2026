@@ -59,9 +59,15 @@ public partial class Form1 : Form
                 (Title)CmbTitle.SelectedItem!,
                 out var customerErrors);
 
+            TxtFirstName.BackColor = customerErrors.ContainsKey("FirstName") ? Color.MistyRose : SystemColors.Window;
+            TxtLastName.BackColor = customerErrors.ContainsKey("LastName") ? Color.MistyRose : SystemColors.Window;
+            TxtPhoneNumberPrivate.BackColor = customerErrors.ContainsKey("MobilePhone") ? Color.MistyRose : SystemColors.Window;
+            TxtEmail.BackColor = customerErrors.ContainsKey("Email") ? Color.MistyRose : SystemColors.Window;
+            TxtPhoneNumberBuisness.BackColor = customerErrors.ContainsKey("BusinessPhone") ? Color.MistyRose : SystemColors.Window;
+
             if (customer == null)
             {
-                MessageBox.Show(string.Join(Environment.NewLine, customerErrors), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Join(Environment.NewLine, customerErrors.Values), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -95,9 +101,23 @@ public partial class Form1 : Form
             ChkTrainee.Checked,
             out var errors);
 
+        TxtFirstName.BackColor = errors.ContainsKey("FirstName") ? Color.MistyRose : SystemColors.Window;
+        TxtLastName.BackColor = errors.ContainsKey("LastName") ? Color.MistyRose : SystemColors.Window;
+        TxtPhoneNumberPrivate.BackColor = errors.ContainsKey("MobilePhone") ? Color.MistyRose : SystemColors.Window;
+        TxtEmail.BackColor = errors.ContainsKey("Email") ? Color.MistyRose : SystemColors.Window;
+        TxtPhoneNumberBuisness.BackColor = errors.ContainsKey("BusinessPhone") ? Color.MistyRose : SystemColors.Window;
+        TxtAhvNumber.BackColor = errors.ContainsKey("AhvNumber") ? Color.MistyRose : SystemColors.Window;
+        TxtEmployment.BackColor = errors.ContainsKey("Employment") ? Color.MistyRose : SystemColors.Window;
+        TxtAdressPrivat.BackColor = errors.ContainsKey("PrivateAddress") ? Color.MistyRose : SystemColors.Window;
+        TxtPlzPrivat.BackColor = errors.ContainsKey("PrivatePostalCode") ? Color.MistyRose : SystemColors.Window;
+        TxtResidence.BackColor = errors.ContainsKey("Residence") ? Color.MistyRose : SystemColors.Window;
+        TxtAdressBuisness.BackColor = errors.ContainsKey("BusinessAddress") ? Color.MistyRose : SystemColors.Window;
+        TxtPlzBuisness.BackColor = errors.ContainsKey("BusinessPostalCode") ? Color.MistyRose : SystemColors.Window;
+        TxtNationality.BackColor = errors.ContainsKey("Nationality") ? Color.MistyRose : SystemColors.Window;
+
         if (employee == null)
         {
-            MessageBox.Show(string.Join(Environment.NewLine, errors), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(string.Join(Environment.NewLine, errors.Values), "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         else
         {
@@ -395,12 +415,18 @@ public partial class Form1 : Form
                 (Gender)CmbGender.SelectedItem!,
                 (Title)CmbTitle.SelectedItem!,
                 ChkActive.Checked,
-                out List<string> errors);
+                out Dictionary<string, string> errors);
+
+            TxtFirstName.BackColor = errors.ContainsKey("FirstName") ? Color.MistyRose : SystemColors.Window;
+            TxtLastName.BackColor = errors.ContainsKey("LastName") ? Color.MistyRose : SystemColors.Window;
+            TxtPhoneNumberPrivate.BackColor = errors.ContainsKey("MobilePhone") ? Color.MistyRose : SystemColors.Window;
+            TxtEmail.BackColor = errors.ContainsKey("Email") ? Color.MistyRose : SystemColors.Window;
+            TxtPhoneNumberBuisness.BackColor = errors.ContainsKey("BusinessPhone") ? Color.MistyRose : SystemColors.Window;
 
             if (!success)
             {
                 MessageBox.Show(
-                    string.Join(Environment.NewLine, errors),
+                    string.Join(Environment.NewLine, errors.Values),
                     "Fehler",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -457,12 +483,26 @@ public partial class Form1 : Form
                 TxtNationality.Text,
                 ChkTrainee.Checked,
                 ChkActive.Checked,
-                out List<string> errors);
+                out Dictionary<string, string> errors);
+
+            TxtFirstName.BackColor = errors.ContainsKey("FirstName") ? Color.MistyRose : SystemColors.Window;
+            TxtLastName.BackColor = errors.ContainsKey("LastName") ? Color.MistyRose : SystemColors.Window;
+            TxtPhoneNumberPrivate.BackColor = errors.ContainsKey("MobilePhone") ? Color.MistyRose : SystemColors.Window;
+            TxtEmail.BackColor = errors.ContainsKey("Email") ? Color.MistyRose : SystemColors.Window;
+            TxtPhoneNumberBuisness.BackColor = errors.ContainsKey("BusinessPhone") ? Color.MistyRose : SystemColors.Window;
+            TxtAhvNumber.BackColor = errors.ContainsKey("AhvNumber") ? Color.MistyRose : SystemColors.Window;
+            TxtEmployment.BackColor = errors.ContainsKey("Employment") ? Color.MistyRose : SystemColors.Window;
+            TxtAdressPrivat.BackColor = errors.ContainsKey("PrivateAddress") ? Color.MistyRose : SystemColors.Window;
+            TxtPlzPrivat.BackColor = errors.ContainsKey("PrivatePostalCode") ? Color.MistyRose : SystemColors.Window;
+            TxtResidence.BackColor = errors.ContainsKey("Residence") ? Color.MistyRose : SystemColors.Window;
+            TxtAdressBuisness.BackColor = errors.ContainsKey("BusinessAddress") ? Color.MistyRose : SystemColors.Window;
+            TxtPlzBuisness.BackColor = errors.ContainsKey("BusinessPostalCode") ? Color.MistyRose : SystemColors.Window;
+            TxtNationality.BackColor = errors.ContainsKey("Nationality") ? Color.MistyRose : SystemColors.Window;
 
             if (!success)
             {
                 MessageBox.Show(
-                    string.Join(Environment.NewLine, errors),
+                    string.Join(Environment.NewLine, errors.Values),
                     "Fehler",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

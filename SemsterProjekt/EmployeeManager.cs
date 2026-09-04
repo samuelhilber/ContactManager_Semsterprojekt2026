@@ -29,30 +29,30 @@ namespace SemsterProjekt
             int businessPostalCode,
             string nationality,
             bool trainee,
-            out List<string> errors)
+            out Dictionary<string, string> errors)
         {
             Employee newEmployee = new Employee();
-            errors = new List<string>();
+            errors = new Dictionary<string, string>(); // war mal eine List, neu aber Dict damit die Fehler den Fehldern zugewiesen werden können. So kann man die Felder auch beleuchten. 
 
-            try { newEmployee.FirstName = firstName; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.LastName = lastName; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.BirthDate = birthDate; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.MobilePhone = mobilePhone; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.Email = email; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.BusinessPhone = businessPhone; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.Job = job; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.ManagementLevel = managementLevel; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.AhvNumber = ahvNumber; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.Employment = employment; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.EntryDate = entryDate; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.ExitDate = exitDate; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.PrivateAddress = privateAddress; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.PrivatePostalCode = privatePostalCode; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.Residence = residence; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.BusinessAddress = businessAddress; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.BusinessPostalCode = businessPostalCode; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.Nationality = nationality; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newEmployee.Trainee = trainee; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { newEmployee.FirstName = firstName; } catch (ArgumentException ex) { errors["FirstName"] = ex.Message; }
+            try { newEmployee.LastName = lastName; } catch (ArgumentException ex) { errors["LastName"] = ex.Message; }
+            try { newEmployee.BirthDate = birthDate; } catch (ArgumentException ex) { errors["BirthDate"] = ex.Message; }
+            try { newEmployee.MobilePhone = mobilePhone; } catch (ArgumentException ex) { errors["MobilePhone"] = ex.Message; }
+            try { newEmployee.Email = email; } catch (ArgumentException ex) { errors["Email"] = ex.Message; }
+            try { newEmployee.BusinessPhone = businessPhone; } catch (ArgumentException ex) { errors["BusinessPhone"] = ex.Message; }
+            try { newEmployee.Job = job; } catch (ArgumentException ex) { errors["Job"] = ex.Message; }
+            try { newEmployee.ManagementLevel = managementLevel; } catch (ArgumentException ex) { errors["ManagementLevel"] = ex.Message; }
+            try { newEmployee.AhvNumber = ahvNumber; } catch (ArgumentException ex) { errors["AhvNumber"] = ex.Message; }
+            try { newEmployee.Employment = employment; } catch (ArgumentException ex) { errors["Employment"] = ex.Message; }
+            try { newEmployee.EntryDate = entryDate; } catch (ArgumentException ex) { errors["EntryDate"] = ex.Message; }
+            try { newEmployee.ExitDate = exitDate; } catch (ArgumentException ex) { errors["ExitDate"] = ex.Message; }
+            try { newEmployee.PrivateAddress = privateAddress; } catch (ArgumentException ex) { errors["PrivateAddress"] = ex.Message; }
+            try { newEmployee.PrivatePostalCode = privatePostalCode; } catch (ArgumentException ex) { errors["PrivatePostalCode"] = ex.Message; }
+            try { newEmployee.Residence = residence; } catch (ArgumentException ex) { errors["Residence"] = ex.Message; }
+            try { newEmployee.BusinessAddress = businessAddress; } catch (ArgumentException ex) { errors["BusinessAddress"] = ex.Message; }
+            try { newEmployee.BusinessPostalCode = businessPostalCode; } catch (ArgumentException ex) { errors["BusinessPostalCode"] = ex.Message; }
+            try { newEmployee.Nationality = nationality; } catch (ArgumentException ex) { errors["Nationality"] = ex.Message; }
+            try { newEmployee.Trainee = trainee; } catch (ArgumentException ex) { errors["Trainee"] = ex.Message; }
 
             if (errors.Count > 0)
             {
@@ -85,9 +85,9 @@ namespace SemsterProjekt
             string nationality,
             bool trainee,
             bool isActive,
-            out List<string> errors)
+            out Dictionary<string, string> errors)
         {
-            errors = new List<string>();
+            errors = new Dictionary<string, string>(); // same wie beim erstellen für Fehlerzuweisung wurde ein dict verwendet
 
             // Ursprüngliche Werte für den Fall eines Fehlers sichern
             string oldFirstName = employee.FirstName;
@@ -113,7 +113,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["FirstName"] = ex.Message;
             }
 
             try
@@ -122,7 +122,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["LastName"] = ex.Message;
             }
 
             try
@@ -131,7 +131,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["BirthDate"] = ex.Message;
             }
 
             try
@@ -140,7 +140,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["MobilePhone"] = ex.Message;
             }
 
             try
@@ -149,7 +149,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["Email"] = ex.Message;
             }
 
             try
@@ -158,7 +158,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["BusinessPhone"] = ex.Message;
             }
 
             try
@@ -167,7 +167,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["AhvNumber"] = ex.Message;
             }
 
             try
@@ -176,7 +176,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["Employment"] = ex.Message;
             }
 
             try
@@ -185,7 +185,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["EntryDate"] = ex.Message;
             }
 
             try
@@ -194,7 +194,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["ExitDate"] = ex.Message;
             }
 
             try
@@ -203,7 +203,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["PrivateAddress"] = ex.Message;
             }
 
             try
@@ -212,7 +212,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["PrivatePostalCode"] = ex.Message;
             }
 
             try
@@ -221,7 +221,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["Residence"] = ex.Message;
             }
 
             try
@@ -230,7 +230,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["BusinessAddress"] = ex.Message;
             }
 
             try
@@ -239,7 +239,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["BusinessPostalCode"] = ex.Message;
             }
 
             try
@@ -248,7 +248,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["Nationality"] = ex.Message;
             }
 
             if (errors.Count > 0)
