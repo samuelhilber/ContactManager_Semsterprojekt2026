@@ -59,6 +59,7 @@ namespace SemsterProjekt
                 return null;
             }
 
+            newEmployee.EmployeeNumber = Employee.GetNextEmployeeNumber(); // vor diesem Code wurde auch bei fallsinput die Zahl hochgezählt
             _employeeList.Add(newEmployee);
             return newEmployee;
         }
