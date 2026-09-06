@@ -14,11 +14,17 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
-        TxtOutput.Click += TxtOutput_Click;
-        TxtOutput.ReadOnly = true;
-        TxtOutput.WordWrap = false;
-        TxtOutput.ScrollBars = RichTextBoxScrollBars.Both;
-        TxtOutput.Font = new Font("Consolas", 10);
+        // tabs vom Tabcontroll ausblenden, da radiobuttons bereits anzeigen ob MA oder Kunde ausgewählt ist.
+        TabContactList.Appearance = TabAppearance.FlatButtons;
+        TabContactList.ItemSize = new Size(0, 1);
+        TabContactList.SizeMode = TabSizeMode.Fixed;
+        TabContactList.TabStop = false;
+        ConfigureOutput(TxtEmployeeOutput);
+        ConfigureOutput(TxtCustomerOutput);
+        TxtEmployeeOutput.Click += TxtOutput_Click;
+        TxtCustomerOutput.Click += TxtOutput_Click;
+
+        TabContactList.SelectedIndexChanged += TabContactList_SelectedIndexChanged;
 
         // lese Werte aus Enums aus für Dropdown auswahl im Programm
         CmbSalutation.DataSource = Enum.GetValues<Salutation>();
@@ -34,7 +40,19 @@ public partial class Form1 : Form
         LoadData();
     }
 
-
+    private void TabContactList_SelectedIndexChanged(
+    object? sender,
+    EventArgs e)
+    {
+        if (TabContactList.SelectedTab == TabEmployees)
+        {
+            RadEmployee.Checked = true;
+        }
+        else if (TabContactList.SelectedTab == TabCustomers)
+        {
+            RadCustomer.Checked = true;
+        }
+    }
 
     private void CmdSave_Click(object sender, EventArgs e)
     {
@@ -108,77 +126,150 @@ public partial class Form1 : Form
         RefreshList();
     }
 
-    private void TxtOutput_Click(object sender, EventArgs e)
+    private void ConfigureOutput(RichTextBox output)
     {
-        int lineIndex = TxtOutput.GetLineFromCharIndex(TxtOutput.SelectionStart);
-        var allEmployees = _employeeManager.GetAllActive();
-        var allCustomers = _customerManager.GetAllActive();
+        output.ReadOnly = true;
+        output.WordWrap = false;
+        output.ScrollBars = RichTextBoxScrollBars.Both;
+        output.Font = new Font("Consolas", 10);
+    }
 
-        if (lineIndex < 0 || lineIndex >= allEmployees.Count + allCustomers.Count)
+    private void TxtOutput_Click(
+    object? sender,
+    EventArgs e)
+    {
+        if (sender is not RichTextBox output)
         {
             return;
         }
 
-        if (lineIndex < allEmployees.Count)
+        int lineIndex =
+            output.GetLineFromCharIndex(
+                output.SelectionStart);
+
+        if (output == TxtEmployeeOutput)
         {
+            var employees =
+                _employeeManager.GetAllActive();
+
+            if (lineIndex < 0 ||
+                lineIndex >= employees.Count)
+            {
+                return;
+            }
+
+            Employee employee = employees[lineIndex];
+
             RadEmployee.Checked = true;
-
-            var selectedEmployee = allEmployees[lineIndex];
-            _selectedEmployee = selectedEmployee;
+            _selectedEmployee = employee;
             _selectedCustomer = null;
-            TxtFirstName.Text = selectedEmployee.FirstName;
-            TxtLastName.Text = selectedEmployee.LastName;
-            TxtPhoneNumberPrivate.Text = selectedEmployee.MobilePhone;
-            TxtPhoneNumberBuisness.Text = selectedEmployee.BusinessPhone;
-            TxtEmail.Text = selectedEmployee.Email;
-            DtBirthday.Value = selectedEmployee.BirthDate.ToDateTime(TimeOnly.MinValue);
-            TxtAhvNumber.Text = selectedEmployee.AhvNumber;
-            TxtNationality.Text = selectedEmployee.Nationality;
-            TxtEmployment.Text = selectedEmployee.Employment.ToString();
-            DtEntryDate.Value = selectedEmployee.EntryDate.ToDateTime(TimeOnly.MinValue);
-            if (selectedEmployee.ExitDate != null)
-            {
-                DtExitDate.Value = selectedEmployee.ExitDate.Value.ToDateTime(TimeOnly.MinValue);
-            }
-            CmbDepartment.SelectedItem = selectedEmployee.Job;
-            CmbManagmentLevel.SelectedItem = selectedEmployee.ManagementLevel;
-            ChkTrainee.Checked = selectedEmployee.Trainee;
-            TxtAdressPrivat.Text = selectedEmployee.PrivateAddress;
-            TxtPlzPrivat.Text = selectedEmployee.PrivatePostalCode.ToString();
-            TxtResidence.Text = selectedEmployee.Residence;
-            TxtAdressBuisness.Text = selectedEmployee.BusinessAddress;
-            TxtPlzBuisness.Text = selectedEmployee.BusinessPostalCode.ToString();
-            TxtEmployeeNumber.Text = selectedEmployee.EmployeeNumber.ToString();
-            ChkActive.Checked = selectedEmployee.IsActive;
 
-            if (ChkTrainee.Checked)
+            TxtFirstName.Text = employee.FirstName;
+            TxtLastName.Text = employee.LastName;
+            TxtPhoneNumberPrivate.Text = employee.MobilePhone;
+            TxtPhoneNumberBuisness.Text = employee.BusinessPhone;
+            TxtEmail.Text = employee.Email;
+
+            DtBirthday.Value =
+                employee.BirthDate.ToDateTime(
+                    TimeOnly.MinValue);
+
+            TxtAhvNumber.Text = employee.AhvNumber;
+            TxtNationality.Text = employee.Nationality;
+            TxtEmployment.Text = employee.Employment.ToString();
+
+            DtEntryDate.Value =
+                employee.EntryDate.ToDateTime(
+                    TimeOnly.MinValue);
+
+            if (employee.ExitDate != null)
             {
-                string TraineeYears = selectedEmployee.ApprenticeshipYear().ToString();
-                TxtTraineeYear.Text = TraineeYears;
+                DtExitDate.Value =
+                    employee.ExitDate.Value.ToDateTime(
+                        TimeOnly.MinValue);
             }
+
+            CmbDepartment.SelectedItem = employee.Job;
+            CmbManagmentLevel.SelectedItem =
+                employee.ManagementLevel;
+
+            ChkTrainee.Checked = employee.Trainee;
+            TxtAdressPrivat.Text = employee.PrivateAddress;
+            TxtPlzPrivat.Text =
+                employee.PrivatePostalCode.ToString();
+
+            TxtResidence.Text = employee.Residence;
+            TxtAdressBuisness.Text = employee.BusinessAddress;
+            TxtPlzBuisness.Text =
+                employee.BusinessPostalCode.ToString();
+
+            TxtEmployeeNumber.Text =
+                employee.EmployeeNumber.ToString();
+
+            ChkActive.Checked = employee.IsActive;
+
+            if (employee.Trainee &&
+                employee.ExitDate != null)
+            {
+                TxtTraineeYear.Text =
+                    employee.ApprenticeshipYear().ToString();
+            }
+            else
+            {
+                TxtTraineeYear.Text = string.Empty;
+            }
+        }
+        else if (output == TxtCustomerOutput)
+        {
+            var customers =
+                _customerManager.GetAllActive();
+
+            if (lineIndex < 0 ||
+                lineIndex >= customers.Count)
+            {
+                return;
+            }
+
+            Customer customer = customers[lineIndex];
+
+            RadCustomer.Checked = true;
+            _selectedCustomer = customer;
+            _selectedEmployee = null;
+
+            TxtFirstName.Text = customer.FirstName;
+            TxtLastName.Text = customer.LastName;
+            TxtPhoneNumberPrivate.Text = customer.MobilePhone;
+            TxtPhoneNumberBuisness.Text = customer.BusinessPhone;
+            TxtEmail.Text = customer.Email;
+
+            DtBirthday.Value =
+                customer.BirthDate.ToDateTime(
+                    TimeOnly.MinValue);
+
+            CmbSalutation.SelectedItem =
+                customer.Salutation;
+
+            CmbGender.SelectedItem =
+                customer.Gender;
+
+            CmbTitle.SelectedItem =
+                customer.Title;
+
+            ChkActive.Checked = customer.IsActive;
         }
         else
         {
-            RadCustomer.Checked = true;
-
-            var selectedCustomer = allCustomers[lineIndex - allEmployees.Count];
-            _selectedCustomer = selectedCustomer;
-            _selectedEmployee = null;
-            TxtFirstName.Text = selectedCustomer.FirstName;
-            TxtLastName.Text = selectedCustomer.LastName;
-            TxtPhoneNumberPrivate.Text = selectedCustomer.MobilePhone;
-            TxtPhoneNumberBuisness.Text = selectedCustomer.BusinessPhone;
-            TxtEmail.Text = selectedCustomer.Email;
-            DtBirthday.Value = selectedCustomer.BirthDate.ToDateTime(TimeOnly.MinValue);
-            CmbSalutation.SelectedItem = selectedCustomer.Salutation;
-            CmbGender.SelectedItem = selectedCustomer.Gender;
-            CmbTitle.SelectedItem = selectedCustomer.Title;
-            ChkActive.Checked = selectedCustomer.IsActive;
+            return;
         }
 
-        int startIndex = TxtOutput.GetFirstCharIndexFromLine(lineIndex);
-        string lineText = TxtOutput.Lines[lineIndex];
-        TxtOutput.Select(startIndex, lineText.Length);
+        int startIndex =
+            output.GetFirstCharIndexFromLine(lineIndex);
+
+        string lineText = output.Lines[lineIndex];
+
+        output.Select(
+            startIndex,
+            lineText.Length);
     }
 
     private void CmdDelete_Click(object sender, EventArgs e)
@@ -214,6 +305,13 @@ public partial class Form1 : Form
         {
             field.Visible = RadCustomer.Checked;
         }
+
+        if (RadCustomer.Checked)
+        {
+            TabContactList.SelectedTab = TabCustomers;
+            // MA darf nach dem Wechsel nicht aus versehen bearbeitet werden
+            _selectedEmployee = null;
+        }
     }
 
     private void RadEmployee_CheckedChanged(object sender, EventArgs e)
@@ -226,17 +324,37 @@ public partial class Form1 : Form
         {
             field.Visible = !RadEmployee.Checked;
         }
+
+        if (RadEmployee.Checked)
+        {
+            TabContactList.SelectedTab = TabEmployees;
+            // Kunde darf nach dem Wechsel nicht aus versehen bearbeitet werden
+            _selectedCustomer = null;
+        }
     }
 
-    private void RefreshList() //neue Refreshlist Methode, um aktiv / inaktiv visuell anzuzeigen können
+    private void TabContactLists_SelectedIndexChanged( object? sender, EventArgs e)
+    {
+        if (TabContactList.SelectedTab == TabEmployees)
+        {
+            RadEmployee.Checked = true;
+        }
+        else if (TabContactList.SelectedTab == TabCustomers)
+        {
+            RadCustomer.Checked = true;
+        }
+    }
+
+    private void RefreshList() //neue Refreshlist Methode, um aktiv / inaktiv visuell anzuzeigen können und Tab wechsel ermöglichen
     {
         var allEmployees =
-            _employeeManager.GetAllActive();
+         _employeeManager.GetAllActive();
 
         var allCustomers =
             _customerManager.GetAllActive();
 
-        TxtOutput.Clear();
+        TxtEmployeeOutput.Clear();
+        TxtCustomerOutput.Clear();
 
         foreach (Employee employee in allEmployees)
         {
@@ -245,6 +363,7 @@ public partial class Form1 : Form
                 $"{employee.FirstName} {employee.LastName}";
 
             AppendContactLine(
+                TxtEmployeeOutput,
                 text,
                 employee.IsActive);
         }
@@ -252,41 +371,41 @@ public partial class Form1 : Form
         foreach (Customer customer in allCustomers)
         {
             string text =
-                $"Kunde: {customer.FirstName} {customer.LastName}";
+                $"Kunde: {customer.FirstName} " +
+                $"{customer.LastName}";
 
             AppendContactLine(
+                TxtCustomerOutput,
                 text,
                 customer.IsActive);
         }
 
-        TxtOutput.Select(0, 0);
+        TxtEmployeeOutput.Select(0, 0);
+        TxtCustomerOutput.Select(0, 0);
     }
 
     //hilfsmethode um inaktive Kunden / Mitarbeiter grau anzuzeigen
-    private void AppendContactLine(string text, bool isActive)
+    private void AppendContactLine(
+    RichTextBox output,
+    string text,
+    bool isActive)
     {
         if (!isActive)
         {
             text += " (inaktiv)";
         }
 
-        int startPosition = TxtOutput.TextLength;  //merkt sich, wo neue Zeile beginnt
+        int startPosition = output.TextLength;
 
-        TxtOutput.AppendText(
+        output.AppendText(
             text + Environment.NewLine);
 
-        TxtOutput.Select(
+        output.Select(
             startPosition,
             text.Length);
 
-        if (isActive)
-        {
-            TxtOutput.SelectionColor = Color.Black;
-        }
-        else
-        {
-            TxtOutput.SelectionColor = Color.Gray;
-        }
+        output.SelectionColor =
+            isActive ? Color.Black : Color.Gray;
     }
 
 
@@ -488,5 +607,10 @@ public partial class Form1 : Form
             "Fehler",
             MessageBoxButtons.OK,
             MessageBoxIcon.Error);
+    }
+
+    private void TxtEmployeeOutput_TextChanged(object sender, EventArgs e)
+    {
+
     }
 }

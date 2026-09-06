@@ -51,7 +51,6 @@
             TxtTraineeYear = new TextBox();
             RadCustomer = new RadioButton();
             RadEmployee = new RadioButton();
-            TxtOutput = new RichTextBox();
             CmdSave = new Button();
             LblFirstName = new Label();
             LblLastName = new Label();
@@ -83,6 +82,14 @@
             LblResidence = new Label();
             TxtResidence = new TextBox();
             CmdUpdate = new Button();
+            TabContactList = new TabControl();
+            TabEmployees = new TabPage();
+            TxtEmployeeOutput = new RichTextBox();
+            TabCustomers = new TabPage();
+            TxtCustomerOutput = new RichTextBox();
+            TabContactList.SuspendLayout();
+            TabEmployees.SuspendLayout();
+            TabCustomers.SuspendLayout();
             SuspendLayout();
             // 
             // TxtFirstName
@@ -269,22 +276,13 @@
             RadEmployee.UseVisualStyleBackColor = true;
             RadEmployee.CheckedChanged += RadEmployee_CheckedChanged;
             // 
-            // TxtOutput
-            // 
-            TxtOutput.Location = new Point(12, 42);
-            TxtOutput.Multiline = true;
-            TxtOutput.Name = "TxtOutput";
-            TxtOutput.ScrollBars = RichTextBoxScrollBars.Vertical;
-            TxtOutput.Size = new Size(493, 483);
-            TxtOutput.TabIndex = 25;
-            // 
             // CmdSave
             // 
             CmdSave.Location = new Point(430, 13);
             CmdSave.Name = "CmdSave";
             CmdSave.Size = new Size(75, 23);
             CmdSave.TabIndex = 26;
-            CmdSave.Text = "Save";
+            CmdSave.Text = "Erstellen";
             CmdSave.UseVisualStyleBackColor = true;
             CmdSave.Click += CmdSave_Click;
             // 
@@ -551,11 +549,68 @@
             CmdUpdate.UseVisualStyleBackColor = true;
             CmdUpdate.Click += CmdUpdate_Click;
             // 
+            // TabContactList
+            // 
+            TabContactList.Controls.Add(TabEmployees);
+            TabContactList.Controls.Add(TabCustomers);
+            TabContactList.Location = new Point(11, 42);
+            TabContactList.Multiline = true;
+            TabContactList.Name = "TabContactList";
+            TabContactList.SelectedIndex = 0;
+            TabContactList.Size = new Size(493, 483);
+            TabContactList.TabIndex = 59;
+            // 
+            // TabEmployees
+            // 
+            TabEmployees.Controls.Add(TxtEmployeeOutput);
+            TabEmployees.Location = new Point(4, 24);
+            TabEmployees.Name = "TabEmployees";
+            TabEmployees.Padding = new Padding(3);
+            TabEmployees.Size = new Size(485, 455);
+            TabEmployees.TabIndex = 0;
+            TabEmployees.Text = "Mitarbeiter";
+            TabEmployees.UseVisualStyleBackColor = true;
+            // 
+            // TxtEmployeeOutput
+            // 
+            TxtEmployeeOutput.Dock = DockStyle.Fill;
+            TxtEmployeeOutput.Location = new Point(3, 3);
+            TxtEmployeeOutput.Name = "TxtEmployeeOutput";
+            TxtEmployeeOutput.ReadOnly = true;
+            TxtEmployeeOutput.Size = new Size(479, 449);
+            TxtEmployeeOutput.TabIndex = 0;
+            TxtEmployeeOutput.Text = "";
+            TxtEmployeeOutput.WordWrap = false;
+            TxtEmployeeOutput.TextChanged += TxtEmployeeOutput_TextChanged;
+            // 
+            // TabCustomers
+            // 
+            TabCustomers.Controls.Add(TxtCustomerOutput);
+            TabCustomers.Location = new Point(4, 24);
+            TabCustomers.Name = "TabCustomers";
+            TabCustomers.Padding = new Padding(3);
+            TabCustomers.Size = new Size(485, 455);
+            TabCustomers.TabIndex = 1;
+            TabCustomers.Text = "Kunden";
+            TabCustomers.UseVisualStyleBackColor = true;
+            // 
+            // TxtCustomerOutput
+            // 
+            TxtCustomerOutput.Dock = DockStyle.Fill;
+            TxtCustomerOutput.Location = new Point(3, 3);
+            TxtCustomerOutput.Name = "TxtCustomerOutput";
+            TxtCustomerOutput.ReadOnly = true;
+            TxtCustomerOutput.Size = new Size(479, 449);
+            TxtCustomerOutput.TabIndex = 0;
+            TxtCustomerOutput.Text = "";
+            TxtCustomerOutput.WordWrap = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1153, 536);
+            Controls.Add(TabContactList);
             Controls.Add(CmdUpdate);
             Controls.Add(TxtResidence);
             Controls.Add(LblResidence);
@@ -587,7 +642,6 @@
             Controls.Add(LblLastName);
             Controls.Add(LblFirstName);
             Controls.Add(CmdSave);
-            Controls.Add(TxtOutput);
             Controls.Add(RadEmployee);
             Controls.Add(RadCustomer);
             Controls.Add(TxtTraineeYear);
@@ -613,6 +667,9 @@
             Controls.Add(TxtFirstName);
             Name = "Form1";
             Text = "Contact Manager";
+            TabContactList.ResumeLayout(false);
+            TabEmployees.ResumeLayout(false);
+            TabCustomers.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -642,7 +699,6 @@
         private TextBox TxtTraineeYear;
         private RadioButton RadCustomer;
         private RadioButton RadEmployee;
-        private RichTextBox TxtOutput;
         private Button CmdSave;
         private Label LblFirstName;
         private Label LblLastName;
@@ -674,5 +730,10 @@
         private Label LblResidence;
         private TextBox TxtResidence;
         private Button CmdUpdate;
+        private TabControl TabContactList;
+        private TabPage TabEmployees;
+        private TabPage TabCustomers;
+        private RichTextBox TxtEmployeeOutput;
+        private RichTextBox TxtCustomerOutput;
     }
 }
