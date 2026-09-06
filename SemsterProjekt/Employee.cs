@@ -16,6 +16,11 @@ namespace SemsterProjekt
             _nextEmployeeNumber = nextNumber;
         }
 
+        public static int GetNextEmployeeNumber() // vergibt die nächste Nummer und zählt den Zähler dabei hoch. Wird erst nach erfolgreicher Validierung aufgerufen, damit fehlgeschlagene Versuche keine Nummer verbrauchen.
+        {
+            return _nextEmployeeNumber++;
+        }
+
         private string _ahvNumber;
         private string _nationality;
         private int _employment;
@@ -26,13 +31,7 @@ namespace SemsterProjekt
         private string _residence;
         private string _businessAddress;
         private int _businessPostalCode;
-
-        public Employee() // mit dem Konstruktor wird jedesmal die Mitarbeiter nummer hochgezählt
-        {
-            EmployeeNumber = _nextEmployeeNumber++; // wenn ich das Programm neustarte geht dieser verloren auch wenn die anderen Daten gesichert sind muss ich noch irgendwie fixen warten auf Marin seine persistenz
-        }
-
-        public int EmployeeNumber { get; init; }  // nur bei der Erstellung setzbar
+        public int EmployeeNumber { get; set; }  // wird erst in AddEmployee nach erfolgreicher Validierung gesetzt, nicht mehr im Konstruktor
         public Job Job { get; set; } // via Dropdown Auswahl ist Fest und braucht keine Validierung, Greift auf Enums Job zu
         public int ManagementLevel { get; set; } = 0; // via Dropdown Auswahl ist und Fest braucht keine Validierung
         public bool Trainee { get; set; } = false; // via Checkbox True/False Bools benötigen dadruch keine Validierung

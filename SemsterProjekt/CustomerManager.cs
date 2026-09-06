@@ -19,20 +19,20 @@ namespace SemsterProjekt
             Salutation salutaion,
             Gender gender,
             Title title,
-            out List<string> errors)
+            out Dictionary<string, string> errors)
         {
             Customer newCustomer = new Customer();
-            errors = new List<string>();
+            errors = new Dictionary<string, string>(); // same wie in Employee
 
-            try { newCustomer.FirstName = firstName; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.LastName = lastName; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.BirthDate = birthDate; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.MobilePhone = mobilePhone; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.Email = email; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.BusinessPhone = buisnessPhone; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.Salutation = salutaion; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.Gender = gender; } catch (ArgumentException ex) { errors.Add(ex.Message); }
-            try { newCustomer.Title = title; } catch (ArgumentException ex) { errors.Add(ex.Message); }
+            try { newCustomer.FirstName = firstName; } catch (ArgumentException ex) { errors["FirstName"] = ex.Message; }
+            try { newCustomer.LastName = lastName; } catch (ArgumentException ex) { errors["LastName"] = ex.Message; }
+            try { newCustomer.BirthDate = birthDate; } catch (ArgumentException ex) { errors["BirthDate"] = ex.Message; }
+            try { newCustomer.MobilePhone = mobilePhone; } catch (ArgumentException ex) { errors["MobilePhone"] = ex.Message; }
+            try { newCustomer.Email = email; } catch (ArgumentException ex) { errors["Email"] = ex.Message; }
+            try { newCustomer.BusinessPhone = buisnessPhone; } catch (ArgumentException ex) { errors["BusinessPhone"] = ex.Message; }
+            try { newCustomer.Salutation = salutaion; } catch (ArgumentException ex) { errors["Salutation"] = ex.Message; }
+            try { newCustomer.Gender = gender; } catch (ArgumentException ex) { errors["Gender"] = ex.Message; }
+            try { newCustomer.Title = title; } catch (ArgumentException ex) { errors["Title"] = ex.Message; }
 
             if (errors.Count > 0)
             {
@@ -55,10 +55,10 @@ namespace SemsterProjekt
             Gender gender,
             Title title,
             bool isActive,
-            out List<string> errors)
+            out Dictionary<string, string> errors)
         {
             Customer updatedCustomer = new Customer();
-            errors = new List<string>();
+            errors = new Dictionary<string, string>();
 
             try
             {
@@ -66,7 +66,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["FirstName"] = ex.Message;
             }
             try
             {
@@ -74,7 +74,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["LastName"] = ex.Message;
             }
             try
             {
@@ -82,7 +82,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["BirthDate"] = ex.Message;
             }
             try
             {
@@ -90,7 +90,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["MobilePhone"] = ex.Message;
             }
             try
             {
@@ -98,7 +98,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["Email"] = ex.Message;
             }
             try
             {
@@ -106,7 +106,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["BusinessPhone"] = ex.Message;
             }
             try
             {
@@ -114,7 +114,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["Salutation"] = ex.Message;
             }
 
             try
@@ -123,7 +123,7 @@ namespace SemsterProjekt
             }
             catch (ArgumentException ex)
             {
-                errors.Add(ex.Message);
+                errors["Gender"] = ex.Message;
             }
 
             updatedCustomer.Title = title;
