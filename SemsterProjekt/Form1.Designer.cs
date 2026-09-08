@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             TxtFirstName = new TextBox();
             TxtLastName = new TextBox();
             DtBirthday = new DateTimePicker();
@@ -95,194 +96,226 @@
             // 
             // TxtFirstName
             // 
-            TxtFirstName.Location = new Point(511, 80);
+            TxtFirstName.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtFirstName.Location = new Point(512, 79);
             TxtFirstName.Name = "TxtFirstName";
             TxtFirstName.Size = new Size(180, 23);
             TxtFirstName.TabIndex = 0;
             // 
             // TxtLastName
             // 
-            TxtLastName.Location = new Point(697, 80);
+            TxtLastName.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtLastName.Location = new Point(698, 79);
             TxtLastName.Name = "TxtLastName";
             TxtLastName.Size = new Size(180, 23);
             TxtLastName.TabIndex = 1;
             // 
             // DtBirthday
             // 
-            DtBirthday.Location = new Point(883, 80);
+            DtBirthday.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            DtBirthday.Location = new Point(887, 79);
             DtBirthday.Name = "DtBirthday";
             DtBirthday.Size = new Size(200, 23);
             DtBirthday.TabIndex = 2;
             // 
             // TxtPhoneNumberPrivate
             // 
-            TxtPhoneNumberPrivate.Location = new Point(511, 138);
+            TxtPhoneNumberPrivate.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtPhoneNumberPrivate.Location = new Point(512, 139);
             TxtPhoneNumberPrivate.Name = "TxtPhoneNumberPrivate";
             TxtPhoneNumberPrivate.Size = new Size(180, 23);
             TxtPhoneNumberPrivate.TabIndex = 3;
             // 
             // TxtEmail
             // 
-            TxtEmail.Location = new Point(883, 138);
+            TxtEmail.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtEmail.Location = new Point(887, 139);
             TxtEmail.Name = "TxtEmail";
             TxtEmail.Size = new Size(200, 23);
-            TxtEmail.TabIndex = 4;
+            TxtEmail.TabIndex = 5;
             // 
             // ChkActive
             // 
             ChkActive.AutoSize = true;
-            ChkActive.Location = new Point(178, 13);
+            ChkActive.BackColor = Color.FloralWhite;
+            ChkActive.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            ChkActive.Location = new Point(748, 13);
             ChkActive.Name = "ChkActive";
-            ChkActive.Size = new Size(53, 19);
+            ChkActive.Size = new Size(58, 19);
             ChkActive.TabIndex = 5;
+            ChkActive.TabStop = false;
             ChkActive.Text = "Aktiv";
-            ChkActive.UseVisualStyleBackColor = true;
+            ChkActive.UseVisualStyleBackColor = false;
             // 
             // CmbSalutation
             // 
+            CmbSalutation.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbSalutation.FormattingEnabled = true;
-            CmbSalutation.Location = new Point(511, 194);
+            CmbSalutation.Location = new Point(512, 199);
             CmbSalutation.Name = "CmbSalutation";
             CmbSalutation.Size = new Size(180, 23);
             CmbSalutation.TabIndex = 7;
             // 
             // CmbGender
             // 
+            CmbGender.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbGender.FormattingEnabled = true;
-            CmbGender.Location = new Point(697, 194);
+            CmbGender.Location = new Point(698, 199);
             CmbGender.Name = "CmbGender";
             CmbGender.Size = new Size(180, 23);
             CmbGender.TabIndex = 8;
             // 
             // CmbTitle
             // 
+            CmbTitle.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbTitle.FormattingEnabled = true;
-            CmbTitle.Location = new Point(883, 194);
+            CmbTitle.Location = new Point(887, 199);
             CmbTitle.Name = "CmbTitle";
             CmbTitle.Size = new Size(200, 23);
             CmbTitle.TabIndex = 9;
             // 
             // TxtEmployeeNumber
             // 
-            TxtEmployeeNumber.Location = new Point(511, 192);
+            TxtEmployeeNumber.BackColor = Color.FloralWhite;
+            TxtEmployeeNumber.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtEmployeeNumber.Location = new Point(512, 199);
             TxtEmployeeNumber.Name = "TxtEmployeeNumber";
             TxtEmployeeNumber.ReadOnly = true;
             TxtEmployeeNumber.Size = new Size(180, 23);
             TxtEmployeeNumber.TabIndex = 10;
+            TxtEmployeeNumber.TabStop = false;
             // 
             // CmbDepartment
             // 
+            CmbDepartment.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbDepartment.FormattingEnabled = true;
-            CmbDepartment.Location = new Point(697, 192);
+            CmbDepartment.Location = new Point(698, 199);
             CmbDepartment.Name = "CmbDepartment";
             CmbDepartment.Size = new Size(180, 23);
-            CmbDepartment.TabIndex = 11;
+            CmbDepartment.TabIndex = 6;
             // 
             // TxtAhvNumber
             // 
-            TxtAhvNumber.Location = new Point(883, 192);
+            TxtAhvNumber.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtAhvNumber.Location = new Point(887, 199);
             TxtAhvNumber.Name = "TxtAhvNumber";
             TxtAhvNumber.Size = new Size(200, 23);
-            TxtAhvNumber.TabIndex = 12;
+            TxtAhvNumber.TabIndex = 7;
             // 
             // TxtAdressPrivat
             // 
-            TxtAdressPrivat.Location = new Point(511, 242);
+            TxtAdressPrivat.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtAdressPrivat.Location = new Point(512, 259);
             TxtAdressPrivat.Name = "TxtAdressPrivat";
             TxtAdressPrivat.Size = new Size(180, 23);
-            TxtAdressPrivat.TabIndex = 13;
+            TxtAdressPrivat.TabIndex = 8;
             // 
             // TxtPlzPrivat
             // 
-            TxtPlzPrivat.Location = new Point(697, 242);
+            TxtPlzPrivat.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtPlzPrivat.Location = new Point(698, 259);
             TxtPlzPrivat.Name = "TxtPlzPrivat";
             TxtPlzPrivat.Size = new Size(100, 23);
-            TxtPlzPrivat.TabIndex = 14;
+            TxtPlzPrivat.TabIndex = 9;
             // 
             // TxtNationality
             // 
-            TxtNationality.Location = new Point(511, 344);
+            TxtNationality.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtNationality.Location = new Point(512, 379);
             TxtNationality.Name = "TxtNationality";
             TxtNationality.Size = new Size(180, 23);
-            TxtNationality.TabIndex = 15;
+            TxtNationality.TabIndex = 13;
             // 
             // DtEntryDate
             // 
-            DtEntryDate.Location = new Point(511, 397);
+            DtEntryDate.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            DtEntryDate.Location = new Point(512, 439);
             DtEntryDate.Name = "DtEntryDate";
             DtEntryDate.Size = new Size(200, 23);
-            DtEntryDate.TabIndex = 16;
+            DtEntryDate.TabIndex = 14;
             // 
             // DtExitDate
             // 
-            DtExitDate.Location = new Point(721, 397);
+            DtExitDate.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            DtExitDate.Location = new Point(723, 439);
             DtExitDate.Name = "DtExitDate";
             DtExitDate.Size = new Size(200, 23);
-            DtExitDate.TabIndex = 17;
+            DtExitDate.TabIndex = 15;
             // 
             // TxtEmployment
             // 
-            TxtEmployment.Location = new Point(511, 452);
+            TxtEmployment.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtEmployment.Location = new Point(512, 499);
             TxtEmployment.Name = "TxtEmployment";
-            TxtEmployment.Size = new Size(100, 23);
-            TxtEmployment.TabIndex = 18;
+            TxtEmployment.Size = new Size(109, 23);
+            TxtEmployment.TabIndex = 16;
             // 
             // CmbManagmentLevel
             // 
+            CmbManagmentLevel.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbManagmentLevel.FormattingEnabled = true;
-            CmbManagmentLevel.Location = new Point(626, 452);
+            CmbManagmentLevel.Location = new Point(634, 499);
             CmbManagmentLevel.Name = "CmbManagmentLevel";
-            CmbManagmentLevel.Size = new Size(65, 23);
-            CmbManagmentLevel.TabIndex = 20;
+            CmbManagmentLevel.Size = new Size(79, 23);
+            CmbManagmentLevel.TabIndex = 17;
             // 
             // ChkTrainee
             // 
             ChkTrainee.AutoSize = true;
-            ChkTrainee.Location = new Point(514, 495);
+            ChkTrainee.BackColor = Color.FloralWhite;
+            ChkTrainee.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            ChkTrainee.Location = new Point(810, 499);
             ChkTrainee.Name = "ChkTrainee";
-            ChkTrainee.Size = new Size(108, 19);
-            ChkTrainee.TabIndex = 21;
+            ChkTrainee.Size = new Size(127, 19);
+            ChkTrainee.TabIndex = 18;
             ChkTrainee.Text = "Auszubildender";
-            ChkTrainee.UseVisualStyleBackColor = true;
+            ChkTrainee.UseVisualStyleBackColor = false;
             // 
             // TxtTraineeYear
             // 
-            TxtTraineeYear.Location = new Point(635, 502);
+            TxtTraineeYear.BackColor = Color.FloralWhite;
+            TxtTraineeYear.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtTraineeYear.Location = new Point(731, 499);
             TxtTraineeYear.Name = "TxtTraineeYear";
             TxtTraineeYear.ReadOnly = true;
-            TxtTraineeYear.Size = new Size(100, 23);
+            TxtTraineeYear.Size = new Size(63, 23);
             TxtTraineeYear.TabIndex = 22;
+            TxtTraineeYear.TabStop = false;
             // 
             // RadCustomer
             // 
             RadCustomer.AutoSize = true;
-            RadCustomer.Location = new Point(12, 13);
+            RadCustomer.BackColor = Color.FloralWhite;
+            RadCustomer.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            RadCustomer.Location = new Point(10, 10);
             RadCustomer.Name = "RadCustomer";
-            RadCustomer.Size = new Size(59, 19);
+            RadCustomer.Size = new Size(67, 19);
             RadCustomer.TabIndex = 23;
-            RadCustomer.TabStop = true;
             RadCustomer.Text = "Kunde";
-            RadCustomer.UseVisualStyleBackColor = true;
+            RadCustomer.UseVisualStyleBackColor = false;
             RadCustomer.CheckedChanged += RadCustomer_CheckedChanged;
             // 
             // RadEmployee
             // 
             RadEmployee.AutoSize = true;
-            RadEmployee.Location = new Point(86, 13);
+            RadEmployee.BackColor = Color.FloralWhite;
+            RadEmployee.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            RadEmployee.Location = new Point(92, 10);
             RadEmployee.Name = "RadEmployee";
-            RadEmployee.Size = new Size(83, 19);
+            RadEmployee.Size = new Size(98, 19);
             RadEmployee.TabIndex = 24;
-            RadEmployee.TabStop = true;
             RadEmployee.Text = "Mitarbeiter";
-            RadEmployee.UseVisualStyleBackColor = true;
+            RadEmployee.UseVisualStyleBackColor = false;
             RadEmployee.CheckedChanged += RadEmployee_CheckedChanged;
             // 
             // CmdSave
             // 
-            CmdSave.Location = new Point(430, 13);
+            CmdSave.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            CmdSave.Location = new Point(672, 10);
             CmdSave.Name = "CmdSave";
-            CmdSave.Size = new Size(75, 23);
+            CmdSave.Size = new Size(70, 23);
             CmdSave.TabIndex = 26;
+            CmdSave.TabStop = false;
             CmdSave.Text = "Erstellen";
             CmdSave.UseVisualStyleBackColor = true;
             CmdSave.Click += CmdSave_Click;
@@ -290,168 +323,205 @@
             // LblFirstName
             // 
             LblFirstName.AutoSize = true;
-            LblFirstName.Location = new Point(511, 62);
+            LblFirstName.BackColor = Color.FloralWhite;
+            LblFirstName.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblFirstName.Location = new Point(512, 59);
             LblFirstName.Name = "LblFirstName";
-            LblFirstName.Size = new Size(54, 15);
-            LblFirstName.TabIndex = 27;
+            LblFirstName.Size = new Size(66, 15);
+            LblFirstName.TabIndex = 100;
             LblFirstName.Text = "Vorname";
             // 
             // LblLastName
             // 
             LblLastName.AutoSize = true;
-            LblLastName.Location = new Point(697, 62);
+            LblLastName.BackColor = Color.FloralWhite;
+            LblLastName.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblLastName.Location = new Point(697, 59);
             LblLastName.Name = "LblLastName";
-            LblLastName.Size = new Size(65, 15);
-            LblLastName.TabIndex = 28;
+            LblLastName.Size = new Size(77, 15);
+            LblLastName.TabIndex = 100;
             LblLastName.Text = "Nachname";
             // 
             // LblBirthday
             // 
             LblBirthday.AutoSize = true;
-            LblBirthday.Location = new Point(883, 62);
+            LblBirthday.BackColor = Color.FloralWhite;
+            LblBirthday.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblBirthday.Location = new Point(887, 59);
             LblBirthday.Name = "LblBirthday";
-            LblBirthday.Size = new Size(83, 15);
-            LblBirthday.TabIndex = 29;
+            LblBirthday.Size = new Size(100, 15);
+            LblBirthday.TabIndex = 100;
             LblBirthday.Text = "Geburtsdatum";
             // 
             // LblPhoneNumberPrivate
             // 
             LblPhoneNumberPrivate.AutoSize = true;
-            LblPhoneNumberPrivate.Location = new Point(511, 120);
+            LblPhoneNumberPrivate.BackColor = Color.FloralWhite;
+            LblPhoneNumberPrivate.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblPhoneNumberPrivate.Location = new Point(510, 119);
             LblPhoneNumberPrivate.Name = "LblPhoneNumberPrivate";
-            LblPhoneNumberPrivate.Size = new Size(124, 15);
-            LblPhoneNumberPrivate.TabIndex = 30;
+            LblPhoneNumberPrivate.Size = new Size(151, 15);
+            LblPhoneNumberPrivate.TabIndex = 100;
             LblPhoneNumberPrivate.Text = "Telefonnummer Privat";
             // 
             // LblEmail
             // 
             LblEmail.AutoSize = true;
-            LblEmail.Location = new Point(883, 120);
+            LblEmail.BackColor = Color.FloralWhite;
+            LblEmail.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblEmail.Location = new Point(887, 119);
             LblEmail.Name = "LblEmail";
-            LblEmail.Size = new Size(36, 15);
-            LblEmail.TabIndex = 31;
+            LblEmail.Size = new Size(44, 15);
+            LblEmail.TabIndex = 100;
             LblEmail.Text = "Email";
             // 
             // LblGender
             // 
             LblGender.AutoSize = true;
-            LblGender.Location = new Point(697, 176);
+            LblGender.BackColor = Color.FloralWhite;
+            LblGender.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblGender.Location = new Point(698, 179);
             LblGender.Name = "LblGender";
-            LblGender.Size = new Size(65, 15);
+            LblGender.Size = new Size(81, 15);
             LblGender.TabIndex = 33;
             LblGender.Text = "Geschlecht";
             // 
             // LblSalutation
             // 
             LblSalutation.AutoSize = true;
-            LblSalutation.Location = new Point(511, 176);
+            LblSalutation.BackColor = Color.FloralWhite;
+            LblSalutation.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblSalutation.Location = new Point(512, 179);
             LblSalutation.Name = "LblSalutation";
-            LblSalutation.Size = new Size(45, 15);
+            LblSalutation.Size = new Size(54, 15);
             LblSalutation.TabIndex = 34;
             LblSalutation.Text = "Anrede";
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(883, 176);
+            lblTitle.BackColor = Color.FloralWhite;
+            lblTitle.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            lblTitle.Location = new Point(884, 179);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(37, 15);
+            lblTitle.Size = new Size(45, 15);
             lblTitle.TabIndex = 35;
             lblTitle.Text = "Titel *";
             // 
             // LblEmployeeNumber
             // 
             LblEmployeeNumber.AutoSize = true;
-            LblEmployeeNumber.Location = new Point(511, 174);
+            LblEmployeeNumber.BackColor = Color.FloralWhite;
+            LblEmployeeNumber.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblEmployeeNumber.Location = new Point(512, 179);
             LblEmployeeNumber.Name = "LblEmployeeNumber";
-            LblEmployeeNumber.Size = new Size(111, 15);
+            LblEmployeeNumber.Size = new Size(134, 15);
             LblEmployeeNumber.TabIndex = 36;
             LblEmployeeNumber.Text = "Mitarbeiternummer";
             // 
             // LblDepartment
             // 
             LblDepartment.AutoSize = true;
-            LblDepartment.Location = new Point(697, 174);
+            LblDepartment.BackColor = Color.FloralWhite;
+            LblDepartment.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblDepartment.Location = new Point(698, 179);
             LblDepartment.Name = "LblDepartment";
-            LblDepartment.Size = new Size(59, 15);
+            LblDepartment.Size = new Size(69, 15);
             LblDepartment.TabIndex = 37;
             LblDepartment.Text = "Abteilung";
             // 
             // LblAhvNumber
             // 
             LblAhvNumber.AutoSize = true;
-            LblAhvNumber.Location = new Point(883, 174);
+            LblAhvNumber.BackColor = Color.FloralWhite;
+            LblAhvNumber.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblAhvNumber.Location = new Point(887, 179);
             LblAhvNumber.Name = "LblAhvNumber";
-            LblAhvNumber.Size = new Size(82, 15);
+            LblAhvNumber.Size = new Size(94, 15);
             LblAhvNumber.TabIndex = 38;
             LblAhvNumber.Text = "AHV Nummer";
             // 
             // LblAdressPrivat
             // 
             LblAdressPrivat.AutoSize = true;
-            LblAdressPrivat.Location = new Point(511, 224);
+            LblAdressPrivat.BackColor = Color.FloralWhite;
+            LblAdressPrivat.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblAdressPrivat.Location = new Point(512, 239);
             LblAdressPrivat.Name = "LblAdressPrivat";
-            LblAdressPrivat.Size = new Size(76, 15);
+            LblAdressPrivat.Size = new Size(98, 15);
             LblAdressPrivat.TabIndex = 39;
             LblAdressPrivat.Text = "Privatadresse";
             // 
             // LblPlzPrivat
             // 
             LblPlzPrivat.AutoSize = true;
-            LblPlzPrivat.Location = new Point(697, 224);
+            LblPlzPrivat.BackColor = Color.FloralWhite;
+            LblPlzPrivat.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblPlzPrivat.Location = new Point(698, 239);
             LblPlzPrivat.Name = "LblPlzPrivat";
-            LblPlzPrivat.Size = new Size(67, 15);
+            LblPlzPrivat.Size = new Size(84, 15);
             LblPlzPrivat.TabIndex = 40;
             LblPlzPrivat.Text = "Postleitzahl";
             // 
             // LblNationality
             // 
             LblNationality.AutoSize = true;
-            LblNationality.Location = new Point(511, 326);
+            LblNationality.BackColor = Color.FloralWhite;
+            LblNationality.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblNationality.Location = new Point(512, 359);
             LblNationality.Name = "LblNationality";
-            LblNationality.Size = new Size(69, 15);
+            LblNationality.Size = new Size(84, 15);
             LblNationality.TabIndex = 41;
             LblNationality.Text = "Nationalität";
             // 
             // LblEntry
             // 
             LblEntry.AutoSize = true;
-            LblEntry.Location = new Point(514, 376);
+            LblEntry.BackColor = Color.FloralWhite;
+            LblEntry.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblEntry.Location = new Point(512, 419);
             LblEntry.Name = "LblEntry";
-            LblEntry.Size = new Size(42, 15);
+            LblEntry.Size = new Size(53, 15);
             LblEntry.TabIndex = 42;
             LblEntry.Text = "Eintritt";
             // 
             // LblExit
             // 
             LblExit.AutoSize = true;
-            LblExit.Location = new Point(721, 379);
+            LblExit.BackColor = Color.FloralWhite;
+            LblExit.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblExit.Location = new Point(723, 419);
             LblExit.Name = "LblExit";
-            LblExit.Size = new Size(54, 15);
+            LblExit.Size = new Size(65, 15);
             LblExit.TabIndex = 43;
             LblExit.Text = "Austritt *";
             // 
             // LblEmployment
             // 
             LblEmployment.AutoSize = true;
-            LblEmployment.Location = new Point(514, 434);
+            LblEmployment.BackColor = Color.FloralWhite;
+            LblEmployment.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblEmployment.Location = new Point(512, 479);
             LblEmployment.Name = "LblEmployment";
-            LblEmployment.Size = new Size(93, 15);
+            LblEmployment.Size = new Size(113, 15);
             LblEmployment.TabIndex = 44;
             LblEmployment.Text = "Anstellungsgrad";
             // 
             // LblManagementLevel
             // 
             LblManagementLevel.AutoSize = true;
-            LblManagementLevel.Location = new Point(626, 434);
+            LblManagementLevel.BackColor = Color.FloralWhite;
+            LblManagementLevel.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblManagementLevel.Location = new Point(634, 479);
             LblManagementLevel.Name = "LblManagementLevel";
-            LblManagementLevel.Size = new Size(63, 15);
+            LblManagementLevel.Size = new Size(79, 15);
             LblManagementLevel.TabIndex = 46;
             LblManagementLevel.Text = "Kaderstufe";
             // 
             // LblTrainee
             // 
             LblTrainee.AutoSize = true;
+            LblTrainee.Font = new Font("Arial Rounded MT Bold", 9.75F);
             LblTrainee.Location = new Point(510, 551);
             LblTrainee.Name = "LblTrainee";
             LblTrainee.Size = new Size(0, 15);
@@ -460,92 +530,110 @@
             // LblTraineeYear
             // 
             LblTraineeYear.AutoSize = true;
-            LblTraineeYear.Location = new Point(635, 484);
+            LblTraineeYear.BackColor = Color.FloralWhite;
+            LblTraineeYear.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblTraineeYear.Location = new Point(731, 479);
             LblTraineeYear.Name = "LblTraineeYear";
-            LblTraineeYear.Size = new Size(50, 15);
+            LblTraineeYear.Size = new Size(63, 15);
             LblTraineeYear.TabIndex = 48;
             LblTraineeYear.Text = "Lehrjahr";
             // 
             // CmdDelete
             // 
-            CmdDelete.Location = new Point(268, 13);
+            CmdDelete.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            CmdDelete.Location = new Point(512, 10);
             CmdDelete.Name = "CmdDelete";
-            CmdDelete.Size = new Size(75, 23);
+            CmdDelete.Size = new Size(70, 23);
             CmdDelete.TabIndex = 49;
+            CmdDelete.TabStop = false;
             CmdDelete.Text = "Löschen";
             CmdDelete.UseVisualStyleBackColor = true;
             CmdDelete.Click += CmdDelete_Click;
             // 
             // TxtPhoneNumberBuisness
             // 
-            TxtPhoneNumberBuisness.Location = new Point(697, 138);
+            TxtPhoneNumberBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtPhoneNumberBuisness.Location = new Point(698, 139);
             TxtPhoneNumberBuisness.Name = "TxtPhoneNumberBuisness";
             TxtPhoneNumberBuisness.Size = new Size(180, 23);
-            TxtPhoneNumberBuisness.TabIndex = 50;
+            TxtPhoneNumberBuisness.TabIndex = 4;
             // 
             // LblPhoneNumberBuisness
             // 
             LblPhoneNumberBuisness.AutoSize = true;
-            LblPhoneNumberBuisness.Location = new Point(697, 120);
+            LblPhoneNumberBuisness.BackColor = Color.FloralWhite;
+            LblPhoneNumberBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblPhoneNumberBuisness.Location = new Point(698, 119);
             LblPhoneNumberBuisness.Name = "LblPhoneNumberBuisness";
-            LblPhoneNumberBuisness.Size = new Size(124, 15);
-            LblPhoneNumberBuisness.TabIndex = 51;
+            LblPhoneNumberBuisness.Size = new Size(150, 15);
+            LblPhoneNumberBuisness.TabIndex = 100;
             LblPhoneNumberBuisness.Text = "Telefonnummer Firma";
             // 
             // LblAdressBuisness
             // 
             LblAdressBuisness.AutoSize = true;
-            LblAdressBuisness.Location = new Point(510, 276);
+            LblAdressBuisness.BackColor = Color.FloralWhite;
+            LblAdressBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblAdressBuisness.Location = new Point(512, 299);
             LblAdressBuisness.Name = "LblAdressBuisness";
-            LblAdressBuisness.Size = new Size(97, 15);
+            LblAdressBuisness.Size = new Size(124, 15);
             LblAdressBuisness.TabIndex = 52;
             LblAdressBuisness.Text = "Geschäftsadresse";
             // 
             // TxtAdressBuisness
             // 
-            TxtAdressBuisness.Location = new Point(511, 296);
+            TxtAdressBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtAdressBuisness.Location = new Point(512, 319);
             TxtAdressBuisness.Name = "TxtAdressBuisness";
             TxtAdressBuisness.Size = new Size(180, 23);
-            TxtAdressBuisness.TabIndex = 53;
+            TxtAdressBuisness.TabIndex = 11;
             // 
             // TxtPlzBuisness
             // 
-            TxtPlzBuisness.Location = new Point(697, 296);
+            TxtPlzBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtPlzBuisness.Location = new Point(698, 319);
             TxtPlzBuisness.Name = "TxtPlzBuisness";
             TxtPlzBuisness.Size = new Size(100, 23);
-            TxtPlzBuisness.TabIndex = 54;
+            TxtPlzBuisness.TabIndex = 12;
             // 
             // LblPlzBuisness
             // 
             LblPlzBuisness.AutoSize = true;
-            LblPlzBuisness.Location = new Point(697, 276);
+            LblPlzBuisness.BackColor = Color.FloralWhite;
+            LblPlzBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblPlzBuisness.Location = new Point(698, 299);
             LblPlzBuisness.Name = "LblPlzBuisness";
-            LblPlzBuisness.Size = new Size(67, 15);
+            LblPlzBuisness.Size = new Size(84, 15);
             LblPlzBuisness.TabIndex = 55;
             LblPlzBuisness.Text = "Postleitzahl";
             // 
             // LblResidence
             // 
             LblResidence.AutoSize = true;
-            LblResidence.Location = new Point(803, 224);
+            LblResidence.BackColor = Color.FloralWhite;
+            LblResidence.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            LblResidence.Location = new Point(804, 239);
             LblResidence.Name = "LblResidence";
-            LblResidence.Size = new Size(54, 15);
+            LblResidence.Size = new Size(62, 15);
             LblResidence.TabIndex = 56;
             LblResidence.Text = "Wohnort";
             // 
             // TxtResidence
             // 
-            TxtResidence.Location = new Point(803, 242);
+            TxtResidence.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtResidence.Location = new Point(804, 259);
             TxtResidence.Name = "TxtResidence";
             TxtResidence.Size = new Size(180, 23);
-            TxtResidence.TabIndex = 57;
+            TxtResidence.TabIndex = 10;
             // 
             // CmdUpdate
             // 
-            CmdUpdate.Location = new Point(349, 13);
+            CmdUpdate.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            CmdUpdate.Location = new Point(592, 10);
             CmdUpdate.Name = "CmdUpdate";
-            CmdUpdate.Size = new Size(75, 23);
+            CmdUpdate.Size = new Size(70, 23);
             CmdUpdate.TabIndex = 58;
+            CmdUpdate.TabStop = false;
             CmdUpdate.Text = "Edit";
             CmdUpdate.UseVisualStyleBackColor = true;
             CmdUpdate.Click += CmdUpdate_Click;
@@ -554,6 +642,7 @@
             // 
             TabContactList.Controls.Add(TabEmployees);
             TabContactList.Controls.Add(TabCustomers);
+            TabContactList.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TabContactList.Location = new Point(11, 62);
             TabContactList.Multiline = true;
             TabContactList.Name = "TabContactList";
@@ -564,6 +653,7 @@
             // TabEmployees
             // 
             TabEmployees.Controls.Add(TxtEmployeeOutput);
+            TabEmployees.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TabEmployees.Location = new Point(4, 24);
             TabEmployees.Name = "TabEmployees";
             TabEmployees.Padding = new Padding(3);
@@ -574,18 +664,22 @@
             // 
             // TxtEmployeeOutput
             // 
+            TxtEmployeeOutput.BackColor = Color.FloralWhite;
             TxtEmployeeOutput.Dock = DockStyle.Fill;
+            TxtEmployeeOutput.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtEmployeeOutput.Location = new Point(3, 3);
             TxtEmployeeOutput.Name = "TxtEmployeeOutput";
             TxtEmployeeOutput.ReadOnly = true;
             TxtEmployeeOutput.Size = new Size(479, 438);
             TxtEmployeeOutput.TabIndex = 0;
+            TxtEmployeeOutput.TabStop = false;
             TxtEmployeeOutput.Text = "";
             TxtEmployeeOutput.WordWrap = false;
             // 
             // TabCustomers
             // 
             TabCustomers.Controls.Add(TxtCustomerOutput);
+            TabCustomers.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TabCustomers.Location = new Point(4, 24);
             TabCustomers.Name = "TabCustomers";
             TabCustomers.Padding = new Padding(3);
@@ -596,7 +690,9 @@
             // 
             // TxtCustomerOutput
             // 
+            TxtCustomerOutput.BackColor = Color.FloralWhite;
             TxtCustomerOutput.Dock = DockStyle.Fill;
+            TxtCustomerOutput.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtCustomerOutput.Location = new Point(3, 3);
             TxtCustomerOutput.Name = "TxtCustomerOutput";
             TxtCustomerOutput.ReadOnly = true;
@@ -607,17 +703,19 @@
             // 
             // TxtSearch
             // 
-            TxtSearch.Location = new Point(269, 42);
+            TxtSearch.Font = new Font("Arial Rounded MT Bold", 9.75F);
+            TxtSearch.Location = new Point(812, 10);
             TxtSearch.Name = "TxtSearch";
-            TxtSearch.PlaceholderText = "suchen...";
-            TxtSearch.Size = new Size(228, 23);
-            TxtSearch.TabIndex = 60;
+            TxtSearch.PlaceholderText = "Suchen...";
+            TxtSearch.Size = new Size(293, 23);
+            TxtSearch.TabIndex = 20;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1153, 536);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1117, 542);
             Controls.Add(TxtSearch);
             Controls.Add(TabContactList);
             Controls.Add(CmdUpdate);
