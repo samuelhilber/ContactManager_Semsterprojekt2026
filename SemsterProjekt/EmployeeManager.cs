@@ -294,6 +294,45 @@ namespace SemsterProjekt
             return _employeeList.Where(m => !m.IsDeleted).ToList();
         }
 
+        public List<Employee> Search(string searchText) //Methode für Suchfeld 
+        {
+            List<Employee> employees = GetAllActive();
+
+            if (string.IsNullOrWhiteSpace(searchText)) //Falls Suchfeld leer
+            {
+                return employees;
+            }
+
+            string searchTerm = searchText.Trim();
+
+            return employees
+                .Where(employee =>
+                    employee.FirstName.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) || //OrdinalIgnoreCase ignoriert gross klein schreibung
+
+                    employee.LastName.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) ||
+
+                    $"{employee.FirstName} {employee.LastName}".Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) ||
+
+                    employee.EmployeeNumber
+                        .ToString()
+                        .Contains(searchTerm) ||
+
+                    employee.Email.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) ||
+
+                    employee.MobilePhone.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
         public void ReplaceAll(List<Employee> employees)
         {
             _employeeList.Clear(); //löscht 
