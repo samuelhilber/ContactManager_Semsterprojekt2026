@@ -87,6 +87,7 @@
             TxtEmployeeOutput = new RichTextBox();
             TabCustomers = new TabPage();
             TxtCustomerOutput = new RichTextBox();
+            TxtSearch = new TextBox();
             TabContactList.SuspendLayout();
             TabEmployees.SuspendLayout();
             TabCustomers.SuspendLayout();
@@ -553,11 +554,11 @@
             // 
             TabContactList.Controls.Add(TabEmployees);
             TabContactList.Controls.Add(TabCustomers);
-            TabContactList.Location = new Point(11, 42);
+            TabContactList.Location = new Point(11, 62);
             TabContactList.Multiline = true;
             TabContactList.Name = "TabContactList";
             TabContactList.SelectedIndex = 0;
-            TabContactList.Size = new Size(493, 483);
+            TabContactList.Size = new Size(493, 472);
             TabContactList.TabIndex = 59;
             // 
             // TabEmployees
@@ -566,7 +567,7 @@
             TabEmployees.Location = new Point(4, 24);
             TabEmployees.Name = "TabEmployees";
             TabEmployees.Padding = new Padding(3);
-            TabEmployees.Size = new Size(485, 455);
+            TabEmployees.Size = new Size(485, 444);
             TabEmployees.TabIndex = 0;
             TabEmployees.Text = "Mitarbeiter";
             TabEmployees.UseVisualStyleBackColor = true;
@@ -577,11 +578,10 @@
             TxtEmployeeOutput.Location = new Point(3, 3);
             TxtEmployeeOutput.Name = "TxtEmployeeOutput";
             TxtEmployeeOutput.ReadOnly = true;
-            TxtEmployeeOutput.Size = new Size(479, 449);
+            TxtEmployeeOutput.Size = new Size(479, 438);
             TxtEmployeeOutput.TabIndex = 0;
             TxtEmployeeOutput.Text = "";
             TxtEmployeeOutput.WordWrap = false;
-            TxtEmployeeOutput.TextChanged += TxtEmployeeOutput_TextChanged;
             // 
             // TabCustomers
             // 
@@ -589,7 +589,7 @@
             TabCustomers.Location = new Point(4, 24);
             TabCustomers.Name = "TabCustomers";
             TabCustomers.Padding = new Padding(3);
-            TabCustomers.Size = new Size(485, 455);
+            TabCustomers.Size = new Size(485, 444);
             TabCustomers.TabIndex = 1;
             TabCustomers.Text = "Kunden";
             TabCustomers.UseVisualStyleBackColor = true;
@@ -600,16 +600,25 @@
             TxtCustomerOutput.Location = new Point(3, 3);
             TxtCustomerOutput.Name = "TxtCustomerOutput";
             TxtCustomerOutput.ReadOnly = true;
-            TxtCustomerOutput.Size = new Size(479, 449);
+            TxtCustomerOutput.Size = new Size(479, 438);
             TxtCustomerOutput.TabIndex = 0;
             TxtCustomerOutput.Text = "";
             TxtCustomerOutput.WordWrap = false;
+            // 
+            // TxtSearch
+            // 
+            TxtSearch.Location = new Point(269, 42);
+            TxtSearch.Name = "TxtSearch";
+            TxtSearch.PlaceholderText = "suchen...";
+            TxtSearch.Size = new Size(228, 23);
+            TxtSearch.TabIndex = 60;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1153, 536);
+            Controls.Add(TxtSearch);
             Controls.Add(TabContactList);
             Controls.Add(CmdUpdate);
             Controls.Add(TxtResidence);
@@ -735,5 +744,6 @@
         private TabPage TabCustomers;
         private RichTextBox TxtEmployeeOutput;
         private RichTextBox TxtCustomerOutput;
+        private TextBox TxtSearch;
     }
 }

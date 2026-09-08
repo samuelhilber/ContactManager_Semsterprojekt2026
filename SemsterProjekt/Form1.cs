@@ -26,6 +26,8 @@ public partial class Form1 : Form
 
         TabContactList.SelectedIndexChanged += TabContactList_SelectedIndexChanged;
 
+        TxtSearch.TextChanged += TxtSearch_TextChanged;
+
         // lese Werte aus Enums aus für Dropdown auswahl im Programm
         CmbSalutation.DataSource = Enum.GetValues<Salutation>();
         CmbGender.DataSource = Enum.GetValues<Gender>();
@@ -154,23 +156,18 @@ public partial class Form1 : Form
         output.Font = new Font("Consolas", 10);
     }
 
-    private void TxtOutput_Click(
-    object? sender,
-    EventArgs e)
+    private void TxtOutput_Click(object? sender,EventArgs e)
     {
         if (sender is not RichTextBox output)
         {
             return;
         }
 
-        int lineIndex =
-            output.GetLineFromCharIndex(
-                output.SelectionStart);
+        int lineIndex = output.GetLineFromCharIndex(output.SelectionStart);
 
         if (output == TxtEmployeeOutput)
         {
-            var employees =
-                _employeeManager.GetAllActive();
+            var employees = _employeeManager.Search(TxtSearch.Text);
 
             if (lineIndex < 0 ||
                 lineIndex >= employees.Count)
@@ -241,8 +238,7 @@ public partial class Form1 : Form
         }
         else if (output == TxtCustomerOutput)
         {
-            var customers =
-                _customerManager.GetAllActive();
+            var customers = _customerManager.Search(TxtSearch.Text);
 
             if (lineIndex < 0 ||
                 lineIndex >= customers.Count)
@@ -353,25 +349,12 @@ public partial class Form1 : Form
         }
     }
 
-    private void TabContactLists_SelectedIndexChanged( object? sender, EventArgs e)
-    {
-        if (TabContactList.SelectedTab == TabEmployees)
-        {
-            RadEmployee.Checked = true;
-        }
-        else if (TabContactList.SelectedTab == TabCustomers)
-        {
-            RadCustomer.Checked = true;
-        }
-    }
-
+   
     private void RefreshList() //neue Refreshlist Methode, um aktiv / inaktiv visuell anzuzeigen können und Tab wechsel ermöglichen
     {
-        var allEmployees =
-         _employeeManager.GetAllActive();
+        var allEmployees = _employeeManager.Search(TxtSearch.Text);
 
-        var allCustomers =
-            _customerManager.GetAllActive();
+        var allCustomers = _customerManager.Search(TxtSearch.Text);
 
         TxtEmployeeOutput.Clear();
         TxtCustomerOutput.Clear();
@@ -649,8 +632,12 @@ public partial class Form1 : Form
             MessageBoxIcon.Error);
     }
 
-    private void TxtEmployeeOutput_TextChanged(object sender, EventArgs e)
+    private void TxtSearch_TextChanged(object sender, EventArgs e)
     {
-
+        _selectedEmployee = null;
+        _selectedCustomer = null;
+        RefreshList();
     }
+
+    
 }

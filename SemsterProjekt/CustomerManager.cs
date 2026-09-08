@@ -165,7 +165,42 @@ namespace SemsterProjekt
             return _customerList.Where(c => !c.IsDeleted).ToList();
         }
 
-        
-        
+        public List<Customer> Search(string searchText) //Methode für Suchfeld
+        {
+            List<Customer> customers = GetAllActive();
+
+            if (string.IsNullOrWhiteSpace(searchText)) //Falls nichts im Suchfeld
+            {
+                return customers;
+            }
+
+            string searchTerm = searchText.Trim();
+
+            return customers
+                .Where(customer =>
+                    customer.FirstName.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) ||
+
+                    customer.LastName.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) ||
+
+                    $"{customer.FirstName} {customer.LastName}".Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) ||
+
+                    customer.Email.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase) ||
+
+                    customer.MobilePhone.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
+
+
     }
 }
