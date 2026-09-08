@@ -15,7 +15,7 @@ namespace SemsterProjekt
             WriteIndented = true,
             Converters =
             {
-                new JsonStringEnumConverter()
+                new JsonStringEnumConverter() // ohne das würden Enums (z.B. Job, Salutation) als Zahl statt als Text gespeichert - schlecht lesbar und bricht, sobald sich die Reihenfolge der Enum-Werte ändert
             }
         };
 

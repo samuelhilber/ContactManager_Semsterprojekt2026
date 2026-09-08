@@ -11,7 +11,7 @@ namespace SemsterProjekt
     {
 
         private static int _nextEmployeeNumber = 1;
-        public static void SetNextEmployeeNumber(int nextNumber)
+        public static void SetNextEmployeeNumber(int nextNumber) // wird nur einmal beim Programmstart nach dem Laden der gespeicherten Daten gebraucht, damit die Nummerierung nicht wieder bei 1 beginnt
         {
             _nextEmployeeNumber = nextNumber;
         }
@@ -34,7 +34,7 @@ namespace SemsterProjekt
         public int EmployeeNumber { get; set; }  // wird erst in AddEmployee nach erfolgreicher Validierung gesetzt, nicht mehr im Konstruktor
         public Job Job { get; set; } // via Dropdown Auswahl ist Fest und braucht keine Validierung, Greift auf Enums Job zu
         public int ManagementLevel { get; set; } = 0; // via Dropdown Auswahl ist und Fest braucht keine Validierung
-        public bool Trainee { get; set; } = false; // via Checkbox True/False Bools benötigen dadruch keine Validierung
+        public bool Trainee { get; set; } = false; // via Checkbox True/False Bools benötigen dadurch keine Validierung
 
         public string AhvNumber
         {
@@ -59,7 +59,7 @@ namespace SemsterProjekt
             get => _nationality;
             set
             {
-                string cleaned = Regex.Replace(value, @"[1-9]", "").Trim(); // Es gibt keinne Nummern in Länder Namen / Nationalitäten
+                string cleaned = Regex.Replace(value, @"[1-9]", "").Trim(); // Es gibt keine Nummern in Länder Namen / Nationalitäten
                 if (string.IsNullOrWhiteSpace(cleaned))
                 {
                     throw new ArgumentException("Die Nationalität muss ausgefüllt werden");
@@ -98,7 +98,7 @@ namespace SemsterProjekt
             }
         }
 
-        public DateOnly? ExitDate // übernommen von Geburstdatum in Person + darf 0 sein Angstellte werden ja nicht 5 Jahre davor wissen wasn sie kündingen
+        public DateOnly? ExitDate // übernommen von Geburtsdatum in Person + darf null sein, Angestellte werden ja nicht 5 Jahre im Voraus wissen, wann sie kündigen
         {
             get => _exitDate;
             set
@@ -110,9 +110,9 @@ namespace SemsterProjekt
                 }
 
 
-                if (value.Value < EntryDate) // Programm hat nicht gestartet 
+                if (value.Value < EntryDate) // Austritt darf nicht vor dem Eintritt liegen
                 {
-                    throw new ArgumentException("Austritts Datum darf nicht in der Verganenheit liegen");
+                    throw new ArgumentException("Austrittsdatum darf nicht vor dem Eintrittsdatum liegen");
                 }
                 _exitDate = value;
             }
@@ -139,7 +139,7 @@ namespace SemsterProjekt
             {
                 try
                 {
-                    if (value > 9999)
+                    if (value > 9999) // Schweizer PLZ sind immer 4-stellig, also zwischen 1000 und 9999
                     {
                         throw new ArgumentException("Bitte geben sie eine gültige Schweizer Postleit Zahl ein.");
                     }
@@ -189,14 +189,14 @@ namespace SemsterProjekt
             get => _businessPostalCode;
             set
             {
-                if (value == 0)
+                if (value == 0) // 0 heisst: kein Firmensitz angegeben - im Gegensatz zur Privatadresse ist das hier optional
                 {
                     _businessPostalCode = 0;
                     return;
                 }
                 try
                 {
-                    if (value > 9999)
+                    if (value > 9999) // Schweizer PLZ sind immer 4-stellig, also zwischen 1000 und 9999
                     {
                         throw new ArgumentException("Bitte geben sie eine gültige Schweizer Postleit Zahl ein.");
                     }
@@ -228,7 +228,7 @@ namespace SemsterProjekt
             }
             int tage = ExitDate.Value.DayNumber - EntryDate.DayNumber;
             int jahre = tage / 365;
-            return jahre + 1;
+            return jahre + 1; // +1 weil man im 1. Lehrjahr startet und nicht im 0.
         }
 
         public override string ToString()

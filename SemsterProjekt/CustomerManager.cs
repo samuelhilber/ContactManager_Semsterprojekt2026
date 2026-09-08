@@ -57,7 +57,7 @@ namespace SemsterProjekt
             bool isActive,
             out Dictionary<string, string> errors)
         {
-            Customer updatedCustomer = new Customer();
+            Customer updatedCustomer = new Customer(); // Änderungen werden zuerst auf dieser Kopie geprüft, damit der echte Kunde bei einem Fehler unverändert bleibt
             errors = new Dictionary<string, string>();
 
             try

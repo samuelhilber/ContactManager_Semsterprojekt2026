@@ -56,12 +56,14 @@ public partial class Form1 : Form
 
     private void CmdSave_Click(object sender, EventArgs e)
     {
-        DateOnly birthDate = DateOnly.FromDateTime(DtBirthday.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
-        DateOnly entryDate = DateOnly.FromDateTime(DtEntryDate.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
-        DateOnly exitDate = DateOnly.FromDateTime(DtExitDate.Value); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
-        int.TryParse(TxtPlzPrivat.Text, out int privatePostalCode); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
-        int.TryParse(TxtEmployment.Text, out int employment); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
-        int.TryParse(TxtPlzBuisness.Text, out int businessPostalCode); // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
+        // ein Button für beides: je nachdem welcher RadioButton aktiv ist, wird unten entweder ein Kunde oder ein Mitarbeiter erstellt
+        // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
+        DateOnly birthDate = DateOnly.FromDateTime(DtBirthday.Value);
+        DateOnly entryDate = DateOnly.FromDateTime(DtEntryDate.Value);
+        DateOnly exitDate = DateOnly.FromDateTime(DtExitDate.Value);
+        int.TryParse(TxtPlzPrivat.Text, out int privatePostalCode);
+        int.TryParse(TxtEmployment.Text, out int employment);
+        int.TryParse(TxtPlzBuisness.Text, out int businessPostalCode);
 
         if (RadCustomer.Checked)
         {
@@ -91,6 +93,7 @@ public partial class Form1 : Form
             {
                 SaveData();
                 MessageBox.Show("Kunde erfolgreich erstellt!", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputFields();
             }
 
             RefreshList();
@@ -141,9 +144,41 @@ public partial class Form1 : Form
         {
             SaveData();
             MessageBox.Show("Mitarbeiter erfolgreich erstellt!", "Erfolg", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearInputFields();
         }
 
         RefreshList();
+    }
+
+    // leert alle Eingabefelder nach erfolgreichem Erstellen, damit direkt der nächste Kontakt erfasst werden kann
+    private void ClearInputFields()
+    {
+        TxtFirstName.Clear();
+        TxtLastName.Clear();
+        DtBirthday.Value = DateTime.Now;
+        TxtPhoneNumberPrivate.Clear();
+        TxtEmail.Clear();
+        TxtPhoneNumberBuisness.Clear();
+
+        CmbSalutation.SelectedIndex = 0;
+        CmbGender.SelectedIndex = 0;
+        CmbTitle.SelectedIndex = 0;
+
+        CmbDepartment.SelectedIndex = 0;
+        CmbManagmentLevel.SelectedIndex = 0;
+        TxtAhvNumber.Clear();
+        TxtEmployment.Clear();
+        DtEntryDate.Value = DateTime.Now;
+        DtExitDate.Value = DateTime.Now;
+        TxtAdressPrivat.Clear();
+        TxtPlzPrivat.Clear();
+        TxtResidence.Clear();
+        TxtAdressBuisness.Clear();
+        TxtPlzBuisness.Clear();
+        TxtNationality.Clear();
+        ChkTrainee.Checked = false;
+        TxtEmployeeNumber.Clear();
+        TxtTraineeYear.Clear();
     }
 
     private void ConfigureOutput(RichTextBox output)
@@ -154,6 +189,7 @@ public partial class Form1 : Form
         output.Font = new Font("Consolas", 10);
     }
 
+    // wird ausgelöst wenn eine Zeile in der Mitarbeiter- oder Kundenliste angeklickt wird und füllt die Eingabefelder mit den Daten des ausgewählten Eintrags
     private void TxtOutput_Click(
     object? sender,
     EventArgs e)

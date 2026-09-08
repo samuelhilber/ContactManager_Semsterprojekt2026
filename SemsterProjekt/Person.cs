@@ -15,7 +15,7 @@ namespace SemsterProjekt
         private string _mobilePhone = string.Empty;
         private string _businessPhone = string.Empty;
         private string _email = string.Empty;
-        public bool IsActive { get; set; } = true; // wird via Checkbox gesetzt und braucht dadruch keine Validierung
+        public bool IsActive { get; set; } = true; // wird via Checkbox gesetzt und braucht dadurch keine Validierung
         public bool IsDeleted { get; set; } = false; // gleich wie IsActive
 
         public string FirstName
@@ -26,7 +26,7 @@ namespace SemsterProjekt
                 string cleaned = Regex.Replace(value, @"[0-9]", "").Trim(); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
                 if (string.IsNullOrWhiteSpace(cleaned)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
                 {
-                    throw new ArgumentException("Vorname ist leer oder flasch");
+                    throw new ArgumentException("Vorname ist leer oder falsch");
                 }
                 _firstName = cleaned;
 
@@ -41,7 +41,7 @@ namespace SemsterProjekt
                 string cleaned = Regex.Replace(value, @"[0-9]", "").Trim(); // sucht den string nach den value hier 0-9 und weil wir "" machen ersetzt es durch nichts also werden sämtliche Zahlen rausgefiltert
                 if (string.IsNullOrWhiteSpace(cleaned)) // wie im Name wird zuerst geprüft ob es Null ist und dann vor und nach folgende Leerzeichen hat
                 {
-                    throw new ArgumentException("Nachname ist leer oder flasch");
+                    throw new ArgumentException("Nachname ist leer oder falsch");
                 }
                 _lastName = cleaned;
             }
@@ -53,9 +53,9 @@ namespace SemsterProjekt
             get => _birthDate;
             set
             {
-                if (value > DateOnly.FromDateTime(DateTime.Today))
+                if (value > DateOnly.FromDateTime(DateTime.Today)) // niemand kann in der Zukunft geboren sein
                 {
-                    throw new ArgumentException("Geburtsdarum darf nicht in der Zukunft liegen");
+                    throw new ArgumentException("Geburtsdatum darf nicht in der Zukunft liegen");
                 }
                 _birthDate = value;
             }
@@ -74,7 +74,7 @@ namespace SemsterProjekt
                     throw new ArgumentException("Mobiletelefonnummer darf nicht leer bleiben.");
                 }
 
-                if (cleaned.Length != 13)
+                if (cleaned.Length != 13) // "079 123 45 67" hat inkl. Leerzeichen genau 13 Zeichen, deshalb die feste Länge
                 {
                     throw new ArgumentException("Ungültige Mobiltelefonnummer");
                 }
@@ -104,7 +104,7 @@ namespace SemsterProjekt
             get => _email;
             set
             {
-                if (value == null) // Basic check ob es leer bleibt
+                if (string.IsNullOrWhiteSpace(value)) // wichtig: auf leeren String prüfen, nicht nur auf null - sonst würde MailAddress unten mit einer eigenen, unpassenden Exception abbrechen
                 {
                     throw new ArgumentException("Email darf nicht leer bleiben");
                 }
