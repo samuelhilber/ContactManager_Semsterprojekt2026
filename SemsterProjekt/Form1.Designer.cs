@@ -151,6 +151,7 @@
             // 
             // CmbSalutation
             // 
+            CmbSalutation.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbSalutation.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbSalutation.FormattingEnabled = true;
             CmbSalutation.Location = new Point(512, 199);
@@ -160,6 +161,7 @@
             // 
             // CmbGender
             // 
+            CmbGender.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbGender.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbGender.FormattingEnabled = true;
             CmbGender.Location = new Point(698, 199);
@@ -169,6 +171,7 @@
             // 
             // CmbTitle
             // 
+            CmbTitle.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbTitle.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbTitle.FormattingEnabled = true;
             CmbTitle.Location = new Point(887, 199);
@@ -189,6 +192,7 @@
             // 
             // CmbDepartment
             // 
+            CmbDepartment.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbDepartment.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbDepartment.FormattingEnabled = true;
             CmbDepartment.Location = new Point(698, 199);
@@ -259,6 +263,7 @@
             // 
             // CmbManagmentLevel
             // 
+            CmbManagmentLevel.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbManagmentLevel.Font = new Font("Arial Rounded MT Bold", 9.75F);
             CmbManagmentLevel.FormattingEnabled = true;
             CmbManagmentLevel.Location = new Point(634, 499);

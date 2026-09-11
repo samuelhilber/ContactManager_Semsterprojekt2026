@@ -35,7 +35,7 @@ public partial class Form1 : Form
 
         CmbDepartment.DataSource = Enum.GetValues(typeof(Job));
         CmbDepartment.SelectedIndex = 0;
-        CmbManagmentLevel.DataSource = Enumerable.Range(0, 5).ToList(); // 0,1,2,3,4
+        CmbManagmentLevel.DataSource = Enumerable.Range(0, 6).ToList(); // 0,1,2,3,4,5
         CmbManagmentLevel.SelectedIndex = 0;
         RadCustomer.Checked = true;
 
@@ -109,7 +109,7 @@ public partial class Form1 : Form
             TxtPhoneNumberPrivate.Text,
             TxtEmail.Text,
             TxtPhoneNumberBuisness.Text,
-            (Job)CmbDepartment.SelectedItem,
+            (Job)CmbDepartment.SelectedItem!,
             Convert.ToInt32(CmbManagmentLevel.SelectedItem),
             TxtAhvNumber.Text,
             employment,
@@ -188,6 +188,29 @@ public partial class Form1 : Form
     private DateOnly? GetExitDate()
     {
         return DtExitDate.Checked ? DateOnly.FromDateTime(DtExitDate.Value) : null;
+    }
+
+    // Text für das Feld Lehrjahr: aktuelles Lehrjahr und Anzahl Lehrjahre, z.B. "2 von 4"
+    private string GetApprenticeshipText(Employee employee)
+    {
+        if (!employee.Trainee)
+        {
+            return string.Empty;
+        }
+
+        int? currentYear = employee.CurrentApprenticeshipYear();
+
+        if (currentYear == null) // Lehre ist abgeschlossen, das Austrittsdatum liegt in der Vergangenheit
+        {
+            return "fertig"; // kurzes Wort, weil das Feld schmal ist
+        }
+
+        if (employee.ExitDate == null) // ohne Austrittsdatum ist die Dauer der Lehre unbekannt, darum nur das aktuelle Lehrjahr
+        {
+            return currentYear.Value.ToString();
+        }
+
+        return $"{currentYear} von {employee.ApprenticeshipYears()}";
     }
 
     private void ConfigureOutput(RichTextBox output)
@@ -274,16 +297,7 @@ public partial class Form1 : Form
 
             ChkActive.Checked = employee.IsActive;
 
-            if (employee.Trainee &&
-                employee.ExitDate != null)
-            {
-                TxtTraineeYear.Text =
-                    employee.ApprenticeshipYear().ToString();
-            }
-            else
-            {
-                TxtTraineeYear.Text = string.Empty;
-            }
+            TxtTraineeYear.Text = GetApprenticeshipText(employee);
         }
         else if (output == TxtCustomerOutput)
         {
@@ -669,6 +683,8 @@ public partial class Form1 : Form
 
                 return;
             }
+
+            TxtTraineeYear.Text = GetApprenticeshipText(_selectedEmployee); // Eintritt, Austritt oder Lehrling könnten geändert worden sein
 
             SaveData();
             RefreshList();

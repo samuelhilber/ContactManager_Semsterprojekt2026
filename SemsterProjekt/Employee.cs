@@ -215,20 +215,44 @@ namespace SemsterProjekt
 
         }
 
-        public int ApprenticeshipYear() // berechnen von angezeigten Lehrjahre für die Lehrlinge
+        public int ApprenticeshipYears() // Lehrjahre: Dauer der Lehre von Eintritt bis Austritt (= letzter Tag der Lehre), z.B. 3 oder 4
         {
-            if (ExitDate == null)
-            {
-                throw new InvalidOperationException("Kein Austrissdatum vorhanden");
-            }
             if (!Trainee)
             {
                 throw new InvalidOperationException("Nur für Lehrlinge berechenbar.");
-
             }
-            int tage = ExitDate.Value.DayNumber - EntryDate.DayNumber;
-            int jahre = tage / 365;
-            return jahre + 1; // +1 weil man im 1. Lehrjahr startet und nicht im 0.
+            if (ExitDate == null)
+            {
+                throw new InvalidOperationException("Kein Austrittsdatum vorhanden");
+            }
+            return ApprenticeshipYearOn(ExitDate.Value); // das Lehrjahr am letzten Tag der Lehre entspricht der Anzahl Lehrjahre
+        }
+
+        public int? CurrentApprenticeshipYear() // aktuelles Lehrjahr: in welchem Lehrjahr der Lehrling heute ist, null wenn die Lehre bereits beendet ist
+        {
+            if (!Trainee)
+            {
+                throw new InvalidOperationException("Nur für Lehrlinge berechenbar.");
+            }
+
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+
+            if (ExitDate != null && today > ExitDate.Value)
+            {
+                return null;
+            }
+            return ApprenticeshipYearOn(today);
+        }
+
+        // berechnet in welchem Lehrjahr ein bestimmter Tag liegt. Gerechnet wird mit echten Kalenderjahren statt Tage / 365, sonst stimmt das Resultat wegen den Schaltjahren nicht
+        private int ApprenticeshipYearOn(DateOnly date)
+        {
+            int fullYears = date.Year - EntryDate.Year;
+            if (date < EntryDate.AddYears(fullYears)) // Jahrestag des Eintritts ist in diesem Jahr noch nicht erreicht
+            {
+                fullYears--;
+            }
+            return fullYears + 1; // +1 weil man im 1. Lehrjahr startet und nicht im 0.
         }
 
         public override string ToString()
