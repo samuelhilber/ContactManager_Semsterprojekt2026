@@ -62,7 +62,7 @@ public partial class Form1 : Form
         // formatiert die Daten aus den Feldern, damit sie korrekt an die Methode AddEmployee übergeben werden können
         DateOnly birthDate = DateOnly.FromDateTime(DtBirthday.Value);
         DateOnly entryDate = DateOnly.FromDateTime(DtEntryDate.Value);
-        DateOnly exitDate = DateOnly.FromDateTime(DtExitDate.Value);
+        DateOnly? exitDate = GetExitDate();
         int.TryParse(TxtPlzPrivat.Text, out int privatePostalCode);
         int.TryParse(TxtEmployment.Text, out int employment);
         int.TryParse(TxtPlzBuisness.Text, out int businessPostalCode);
@@ -172,6 +172,7 @@ public partial class Form1 : Form
         TxtEmployment.Clear();
         DtEntryDate.Value = DateTime.Now;
         DtExitDate.Value = DateTime.Now;
+        DtExitDate.Checked = false; // neue Mitarbeiter sind standardmässig noch angestellt
         TxtAdressPrivat.Clear();
         TxtPlzPrivat.Clear();
         TxtResidence.Clear();
@@ -181,6 +182,12 @@ public partial class Form1 : Form
         ChkTrainee.Checked = false;
         TxtEmployeeNumber.Clear();
         TxtTraineeYear.Clear();
+    }
+
+    // Checkbox am Austritts-Picker nicht angehakt = noch angestellt, also kein Austrittsdatum
+    private DateOnly? GetExitDate()
+    {
+        return DtExitDate.Checked ? DateOnly.FromDateTime(DtExitDate.Value) : null;
     }
 
     private void ConfigureOutput(RichTextBox output)
@@ -240,6 +247,12 @@ public partial class Form1 : Form
                 DtExitDate.Value =
                     employee.ExitDate.Value.ToDateTime(
                         TimeOnly.MinValue);
+                DtExitDate.Checked = true;
+            }
+            else
+            {
+                DtExitDate.Value = DateTime.Now;
+                DtExitDate.Checked = false; // nach Value setzen, da das Setzen von Value die Checkbox wieder aktiviert
             }
 
             CmbDepartment.SelectedItem = employee.Job;
@@ -501,6 +514,15 @@ public partial class Form1 : Form
             MessageBoxButtons.OK,
             MessageBoxIcon.Error);
         }
+        catch (ArgumentException ex) // beim Laden laufen die Werte durch die Setter, ein ungültiger gespeicherter Wert (z.B. Telefonnummer) würde sonst das Programm abstürzen lassen
+        {
+            MessageBox.Show(
+            "Die gespeicherte JSON-Datei enthält ungültige Daten:\r\n" +
+            ex.Message,
+            "Ladefehler",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
+        }
     }
 
 
@@ -612,7 +634,7 @@ public partial class Form1 : Form
                 TxtAhvNumber.Text,
                 employment,
                 DateOnly.FromDateTime(DtEntryDate.Value),
-                DateOnly.FromDateTime(DtExitDate.Value),
+                GetExitDate(),
                 TxtAdressPrivat.Text,
                 privatePostalCode,
                 TxtResidence.Text,

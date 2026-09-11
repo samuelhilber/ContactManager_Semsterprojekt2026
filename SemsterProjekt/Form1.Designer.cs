@@ -123,6 +123,7 @@
             TxtPhoneNumberPrivate.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtPhoneNumberPrivate.Location = new Point(512, 139);
             TxtPhoneNumberPrivate.Name = "TxtPhoneNumberPrivate";
+            TxtPhoneNumberPrivate.PlaceholderText = "079 123 45 67";
             TxtPhoneNumberPrivate.Size = new Size(180, 23);
             TxtPhoneNumberPrivate.TabIndex = 3;
             // 
@@ -131,6 +132,7 @@
             TxtEmail.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtEmail.Location = new Point(887, 139);
             TxtEmail.Name = "TxtEmail";
+            TxtEmail.PlaceholderText = "name@beispiel.ch";
             TxtEmail.Size = new Size(200, 23);
             TxtEmail.TabIndex = 5;
             // 
@@ -199,6 +201,7 @@
             TxtAhvNumber.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtAhvNumber.Location = new Point(887, 199);
             TxtAhvNumber.Name = "TxtAhvNumber";
+            TxtAhvNumber.PlaceholderText = "756.1234.5678.97";
             TxtAhvNumber.Size = new Size(200, 23);
             TxtAhvNumber.TabIndex = 7;
             // 
@@ -215,6 +218,7 @@
             TxtPlzPrivat.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtPlzPrivat.Location = new Point(698, 259);
             TxtPlzPrivat.Name = "TxtPlzPrivat";
+            TxtPlzPrivat.PlaceholderText = "8000";
             TxtPlzPrivat.Size = new Size(100, 23);
             TxtPlzPrivat.TabIndex = 9;
             // 
@@ -238,7 +242,9 @@
             // 
             DtExitDate.Font = new Font("Arial Rounded MT Bold", 9.75F);
             DtExitDate.Location = new Point(723, 439);
+            DtExitDate.Checked = false;
             DtExitDate.Name = "DtExitDate";
+            DtExitDate.ShowCheckBox = true;
             DtExitDate.Size = new Size(200, 23);
             DtExitDate.TabIndex = 15;
             // 
@@ -247,6 +253,7 @@
             TxtEmployment.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtEmployment.Location = new Point(512, 499);
             TxtEmployment.Name = "TxtEmployment";
+            TxtEmployment.PlaceholderText = "100";
             TxtEmployment.Size = new Size(109, 23);
             TxtEmployment.TabIndex = 16;
             // 
@@ -555,6 +562,7 @@
             TxtPhoneNumberBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtPhoneNumberBuisness.Location = new Point(698, 139);
             TxtPhoneNumberBuisness.Name = "TxtPhoneNumberBuisness";
+            TxtPhoneNumberBuisness.PlaceholderText = "044 123 45 67";
             TxtPhoneNumberBuisness.Size = new Size(180, 23);
             TxtPhoneNumberBuisness.TabIndex = 4;
             // 
@@ -593,6 +601,7 @@
             TxtPlzBuisness.Font = new Font("Arial Rounded MT Bold", 9.75F);
             TxtPlzBuisness.Location = new Point(698, 319);
             TxtPlzBuisness.Name = "TxtPlzBuisness";
+            TxtPlzBuisness.PlaceholderText = "8000";
             TxtPlzBuisness.Size = new Size(100, 23);
             TxtPlzBuisness.TabIndex = 12;
             // 

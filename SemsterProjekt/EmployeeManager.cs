@@ -21,7 +21,7 @@ namespace SemsterProjekt
             string ahvNumber,
             int employment,
             DateOnly entryDate,
-            DateOnly exitDate,
+            DateOnly? exitDate, // null = noch angestellt
             string privateAddress,
             int privatePostalCode,
             string residence,

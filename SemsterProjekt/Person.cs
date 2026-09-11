@@ -61,42 +61,50 @@ namespace SemsterProjekt
             }
         }
 
-        public string MobilePhone // 089 123 12 12
+        public string MobilePhone // 079 123 45 67
         {
             get => _mobilePhone;
             set
             {
-                string cleanedOne = Regex.Replace(value, @"[a-zA-Z]", ""); // Entfernt Buchstaben
-                string cleaned = Regex.Replace(cleanedOne, @"\s+", " ").Trim(); // ersetzt zuerst mehrere Leerzeichen und ersetzt diese druch ein leerzeichen und trim schneidet den start und das ende ab so ist eine Telefon Nummer nicht länger als 13
-
-                if (string.IsNullOrWhiteSpace(cleaned))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Mobiletelefonnummer darf nicht leer bleiben.");
                 }
 
-                if (cleaned.Length != 13) // "079 123 45 67" hat inkl. Leerzeichen genau 13 Zeichen, deshalb die feste Länge
-                {
-                    throw new ArgumentException("Ungültige Mobiltelefonnummer");
-                }
-
-                _mobilePhone = cleaned;
+                _mobilePhone = FormatPhoneNumber(value, "Ungültige Mobiltelefonnummer (z.B. 079 123 45 67)");
             }
         }
 
-        public string BusinessPhone // 089 123 12 12
+        public string BusinessPhone // 044 123 45 67
         {
             get => _businessPhone;
             set
             {
-                string cleanedone = Regex.Replace(value, @"[a-zA-Z]", ""); // Entfernt Buchstaben
-                string cleaned = Regex.Replace(cleanedone, @"\s+", " ").Trim(); // ersetzt zuerst mehrere Leerzeichen und ersetzt diese druch ein leerzeichen und trim schneidet den start und das ende ab so ist eine Telefon Nummer nicht länger als 13
-
-                if (cleaned.Length != 13)
-                {
-                    throw new ArgumentException("Ungültige Firmentelefonnummer");
-                }
-                _businessPhone = cleaned;
+                _businessPhone = FormatPhoneNumber(value, "Ungültige Firmentelefonnummer (z.B. 044 123 45 67)");
             }
+        }
+
+        // zählt nur die Ziffern statt der Stringlänge, dadurch sind "0791234567", "079 123 45 67", "+41 79 123 45 67" und "0041 79 123 45 67" alle gültig
+        // gespeichert wird immer im einheitlichen Format "079 123 45 67"
+        private static string FormatPhoneNumber(string value, string errorMessage)
+        {
+            string digits = Regex.Replace(value ?? string.Empty, @"\D", ""); // entfernt alles was keine Ziffer ist (Leerzeichen, +, Buchstaben usw.)
+
+            if (digits.StartsWith("0041")) // 0041 79 ... -> 079 ...
+            {
+                digits = "0" + digits.Substring(4);
+            }
+            else if (digits.StartsWith("41") && digits.Length == 11) // +41 79 ... -> 079 ...
+            {
+                digits = "0" + digits.Substring(2);
+            }
+
+            if (digits.Length != 10) // eine Nummer ohne Vorwahl ins Ausland hat immer 10 Ziffern
+            {
+                throw new ArgumentException(errorMessage);
+            }
+
+            return $"{digits.Substring(0, 3)} {digits.Substring(3, 3)} {digits.Substring(6, 2)} {digits.Substring(8, 2)}";
         }
 
         public string Email
