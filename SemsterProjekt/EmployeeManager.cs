@@ -5,10 +5,48 @@ using System.Text;
 
 namespace SemsterProjekt
 {
+    /// <summary>
+    /// Verwaltet die Mitarbeiter: Erfassen, Bearbeiten, Suchen und Bereitstellen der Mitarbeiterliste.
+    /// </summary>
     internal class EmployeeManager
     {
         private List<Employee> _employeeList = new List<Employee>();
 
+        /// <summary>
+        /// Erstellt einen neuen Mitarbeiter, validiert alle Angaben und fügt ihn bei Erfolg der
+        /// Mitarbeiterliste hinzu.
+        /// </summary>
+        /// <remarks>
+        /// Es werden immer alle Felder geprüft, damit sämtliche Fehler auf einmal zurückgegeben und in der
+        /// Oberfläche den betroffenen Eingabefeldern zugeordnet werden können. Die Mitarbeiternummer wird erst
+        /// nach erfolgreicher Validierung vergeben, damit fehlgeschlagene Versuche keine Nummer verbrauchen.
+        /// </remarks>
+        /// <param name="firstName">Der Vorname des Mitarbeiters.</param>
+        /// <param name="lastName">Der Nachname des Mitarbeiters.</param>
+        /// <param name="birthDate">Das Geburtsdatum des Mitarbeiters.</param>
+        /// <param name="mobilePhone">Die Mobiltelefonnummer des Mitarbeiters.</param>
+        /// <param name="email">Die E-Mail-Adresse des Mitarbeiters.</param>
+        /// <param name="businessPhone">Die geschäftliche Telefonnummer des Mitarbeiters.</param>
+        /// <param name="job">Die Abteilung des Mitarbeiters.</param>
+        /// <param name="managementLevel">Die Kaderstufe des Mitarbeiters (0 bis 5).</param>
+        /// <param name="ahvNumber">Die AHV-Nummer im Format "756.XXXX.XXXX.XX".</param>
+        /// <param name="employment">Der Anstellungsgrad in Prozent (1 bis 100).</param>
+        /// <param name="entryDate">Das Eintrittsdatum.</param>
+        /// <param name="exitDate">Das Austrittsdatum oder <see langword="null"/>, wenn der Mitarbeiter noch angestellt ist.</param>
+        /// <param name="privateAddress">Die Privatadresse (Strasse und Hausnummer).</param>
+        /// <param name="privatePostalCode">Die Postleitzahl der Privatadresse.</param>
+        /// <param name="residence">Der Wohnort.</param>
+        /// <param name="businessAddress">Die Geschäftsadresse (optional, darf leer sein).</param>
+        /// <param name="businessPostalCode">Die Postleitzahl der Geschäftsadresse (optional, 0 = keine Angabe).</param>
+        /// <param name="nationality">Die Nationalität.</param>
+        /// <param name="trainee"><see langword="true"/>, wenn der Mitarbeiter ein Lehrling ist; andernfalls <see langword="false"/>.</param>
+        /// <param name="errors">
+        /// Gibt die Validierungsfehler zurück. Der Schlüssel ist der Name der betroffenen Eigenschaft
+        /// (z.B. "AhvNumber"), der Wert die Fehlermeldung. Leer, wenn alle Angaben gültig sind.
+        /// </param>
+        /// <returns>
+        /// Der neu erstellte Mitarbeiter oder <see langword="null"/>, wenn mindestens eine Angabe ungültig ist.
+        /// </returns>
         public Employee? AddEmployee(
             string firstName,
             string lastName,
@@ -64,6 +102,43 @@ namespace SemsterProjekt
             return newEmployee;
         }
 
+        /// <summary>
+        /// Aktualisiert einen bestehenden Mitarbeiter mit den übergebenen Angaben.
+        /// </summary>
+        /// <remarks>
+        /// Die bisherigen Werte werden vorher gesichert. Ist mindestens eine Angabe ungültig, werden alle
+        /// Änderungen rückgängig gemacht, sodass der Mitarbeiter unverändert bleibt.
+        /// Die Mitarbeiternummer wird nicht verändert.
+        /// </remarks>
+        /// <param name="employee">Der zu bearbeitende Mitarbeiter.</param>
+        /// <param name="firstName">Der neue Vorname.</param>
+        /// <param name="lastName">Der neue Nachname.</param>
+        /// <param name="birthDate">Das neue Geburtsdatum.</param>
+        /// <param name="mobilePhone">Die neue Mobiltelefonnummer.</param>
+        /// <param name="email">Die neue E-Mail-Adresse.</param>
+        /// <param name="businessPhone">Die neue geschäftliche Telefonnummer.</param>
+        /// <param name="job">Die neue Abteilung.</param>
+        /// <param name="managementLevel">Die neue Kaderstufe (0 bis 5).</param>
+        /// <param name="ahvNumber">Die neue AHV-Nummer im Format "756.XXXX.XXXX.XX".</param>
+        /// <param name="employment">Der neue Anstellungsgrad in Prozent (1 bis 100).</param>
+        /// <param name="entryDate">Das neue Eintrittsdatum.</param>
+        /// <param name="exitDate">Das neue Austrittsdatum oder <see langword="null"/>, wenn der Mitarbeiter noch angestellt ist.</param>
+        /// <param name="privateAddress">Die neue Privatadresse (Strasse und Hausnummer).</param>
+        /// <param name="privatePostalCode">Die neue Postleitzahl der Privatadresse.</param>
+        /// <param name="residence">Der neue Wohnort.</param>
+        /// <param name="businessAddress">Die neue Geschäftsadresse (optional, darf leer sein).</param>
+        /// <param name="businessPostalCode">Die neue Postleitzahl der Geschäftsadresse (optional, 0 = keine Angabe).</param>
+        /// <param name="nationality">Die neue Nationalität.</param>
+        /// <param name="trainee"><see langword="true"/>, wenn der Mitarbeiter ein Lehrling ist; andernfalls <see langword="false"/>.</param>
+        /// <param name="isActive"><see langword="true"/>, wenn der Mitarbeiter aktiv ist; andernfalls <see langword="false"/>.</param>
+        /// <param name="errors">
+        /// Gibt die Validierungsfehler zurück (Schlüssel = Name der Eigenschaft, Wert = Fehlermeldung).
+        /// Leer, wenn alle Angaben gültig sind.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/>, wenn der Mitarbeiter aktualisiert wurde; <see langword="false"/>, wenn
+        /// mindestens eine Angabe ungültig ist.
+        /// </returns>
         public bool UpdateEmployee(
             Employee employee,
             string firstName,
@@ -284,17 +359,42 @@ namespace SemsterProjekt
             return true;
         }
 
+        /// <summary>
+        /// Gibt alle Mitarbeiter zurück, auch die als gelöscht markierten.
+        /// </summary>
+        /// <remarks>
+        /// Wird zum Speichern verwendet. Zurückgegeben wird die interne Liste, keine Kopie.
+        /// </remarks>
+        /// <returns>Die Liste aller Mitarbeiter.</returns>
         public List<Employee> GetAll()
         {
             return _employeeList;
         }
 
+        /// <summary>
+        /// Gibt alle Mitarbeiter zurück, die nicht als gelöscht markiert sind.
+        /// </summary>
+        /// <remarks>
+        /// Inaktive Mitarbeiter (<see cref="Person.IsActive"/> ist <see langword="false"/>) sind ebenfalls enthalten.
+        /// </remarks>
+        /// <returns>Eine neue Liste mit allen nicht gelöschten Mitarbeitern.</returns>
         public List<Employee> GetAllActive()
         {
             return _employeeList.Where(m => !m.IsDeleted).ToList();
         }
 
-        public List<Employee> Search(string searchText) //Methode für Suchfeld 
+        /// <summary>
+        /// Durchsucht alle nicht gelöschten Mitarbeiter nach dem Suchtext aus dem Suchfeld.
+        /// </summary>
+        /// <remarks>
+        /// Gesucht wird ohne Beachtung der Gross- und Kleinschreibung in Vorname, Nachname,
+        /// vollständigem Namen, Mitarbeiternummer, E-Mail-Adresse und Mobiltelefonnummer.
+        /// </remarks>
+        /// <param name="searchText">Der Suchtext. Leerzeichen am Anfang und Ende werden ignoriert.</param>
+        /// <returns>
+        /// Die passenden Mitarbeiter oder alle nicht gelöschten Mitarbeiter, wenn der Suchtext leer ist.
+        /// </returns>
+        public List<Employee> Search(string searchText)
         {
             List<Employee> employees = GetAllActive();
 
@@ -333,6 +433,11 @@ namespace SemsterProjekt
                 .ToList();
         }
 
+        /// <summary>
+        /// Ersetzt alle vorhandenen Mitarbeiter durch die übergebenen Mitarbeiter, z.B. nach dem Laden
+        /// aus der Datei.
+        /// </summary>
+        /// <param name="employees">Die Mitarbeiter, welche die bisherige Mitarbeiterliste ersetzen.</param>
         public void ReplaceAll(List<Employee> employees)
         {
             _employeeList.Clear(); //löscht 

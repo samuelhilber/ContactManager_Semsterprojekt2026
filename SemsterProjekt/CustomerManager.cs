@@ -5,10 +5,36 @@ using System.Text;
 
 namespace SemsterProjekt
 {
+    /// <summary>
+    /// Verwaltet die Kunden: Erfassen, Bearbeiten, Suchen und Bereitstellen der Kundenliste.
+    /// </summary>
     internal class CustomerManager
     {
         private List<Customer> _customerList = new List<Customer>();
 
+        /// <summary>
+        /// Erstellt einen neuen Kunden, validiert alle Angaben und fügt ihn bei Erfolg der Kundenliste hinzu.
+        /// </summary>
+        /// <remarks>
+        /// Es werden immer alle Felder geprüft, damit sämtliche Fehler auf einmal zurückgegeben und in der
+        /// Oberfläche den betroffenen Eingabefeldern zugeordnet werden können.
+        /// </remarks>
+        /// <param name="firstName">Der Vorname des Kunden.</param>
+        /// <param name="lastName">Der Nachname des Kunden.</param>
+        /// <param name="birthDate">Das Geburtsdatum des Kunden.</param>
+        /// <param name="mobilePhone">Die Mobiltelefonnummer des Kunden.</param>
+        /// <param name="email">Die E-Mail-Adresse des Kunden.</param>
+        /// <param name="buisnessPhone">Die geschäftliche Telefonnummer des Kunden.</param>
+        /// <param name="salutaion">Die Anrede des Kunden.</param>
+        /// <param name="gender">Das Geschlecht des Kunden.</param>
+        /// <param name="title">Der akademische Titel des Kunden.</param>
+        /// <param name="errors">
+        /// Gibt die Validierungsfehler zurück. Der Schlüssel ist der Name der betroffenen Eigenschaft
+        /// (z.B. "FirstName"), der Wert die Fehlermeldung. Leer, wenn alle Angaben gültig sind.
+        /// </param>
+        /// <returns>
+        /// Der neu erstellte Kunde oder <see langword="null"/>, wenn mindestens eine Angabe ungültig ist.
+        /// </returns>
         public Customer? AddCustomer(
             string firstName,
             string lastName,
@@ -43,6 +69,32 @@ namespace SemsterProjekt
             return newCustomer;
         }
 
+        /// <summary>
+        /// Aktualisiert einen bestehenden Kunden mit den übergebenen Angaben.
+        /// </summary>
+        /// <remarks>
+        /// Die neuen Werte werden zuerst auf einer Kopie validiert. Nur wenn alle Angaben gültig sind,
+        /// werden sie auf den bestehenden Kunden übertragen. Bei einem Fehler bleibt der Kunde unverändert.
+        /// </remarks>
+        /// <param name="customer">Der zu bearbeitende Kunde.</param>
+        /// <param name="firstName">Der neue Vorname.</param>
+        /// <param name="lastName">Der neue Nachname.</param>
+        /// <param name="birthDate">Das neue Geburtsdatum.</param>
+        /// <param name="mobilePhone">Die neue Mobiltelefonnummer.</param>
+        /// <param name="email">Die neue E-Mail-Adresse.</param>
+        /// <param name="businessPhone">Die neue geschäftliche Telefonnummer.</param>
+        /// <param name="salutation">Die neue Anrede.</param>
+        /// <param name="gender">Das neue Geschlecht.</param>
+        /// <param name="title">Der neue akademische Titel.</param>
+        /// <param name="isActive"><see langword="true"/>, wenn der Kunde aktiv ist; andernfalls <see langword="false"/>.</param>
+        /// <param name="errors">
+        /// Gibt die Validierungsfehler zurück (Schlüssel = Name der Eigenschaft, Wert = Fehlermeldung).
+        /// Leer, wenn alle Angaben gültig sind.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/>, wenn der Kunde aktualisiert wurde; <see langword="false"/>, wenn mindestens
+        /// eine Angabe ungültig ist.
+        /// </returns>
         public bool UpdateCustomer(
             Customer customer,
             string firstName,
@@ -149,23 +201,52 @@ namespace SemsterProjekt
         }
 
 
+        /// <summary>
+        /// Gibt alle Kunden zurück, auch die als gelöscht markierten.
+        /// </summary>
+        /// <remarks>
+        /// Wird zum Speichern verwendet. Zurückgegeben wird die interne Liste, keine Kopie.
+        /// </remarks>
+        /// <returns>Die Liste aller Kunden.</returns>
         public List<Customer> GetAll()
         {
             return _customerList;
         }
 
+        /// <summary>
+        /// Ersetzt alle vorhandenen Kunden durch die übergebenen Kunden, z.B. nach dem Laden aus der Datei.
+        /// </summary>
+        /// <param name="customers">Die Kunden, welche die bisherige Kundenliste ersetzen.</param>
         public void ReplaceAll(List<Customer> customers)
         {
             _customerList.Clear();
             _customerList.AddRange(customers);
         }
 
+        /// <summary>
+        /// Gibt alle Kunden zurück, die nicht als gelöscht markiert sind.
+        /// </summary>
+        /// <remarks>
+        /// Inaktive Kunden (<see cref="Person.IsActive"/> ist <see langword="false"/>) sind ebenfalls enthalten.
+        /// </remarks>
+        /// <returns>Eine neue Liste mit allen nicht gelöschten Kunden.</returns>
         public List<Customer> GetAllActive()
         {
             return _customerList.Where(c => !c.IsDeleted).ToList();
         }
 
-        public List<Customer> Search(string searchText) //Methode für Suchfeld
+        /// <summary>
+        /// Durchsucht alle nicht gelöschten Kunden nach dem Suchtext aus dem Suchfeld.
+        /// </summary>
+        /// <remarks>
+        /// Gesucht wird ohne Beachtung der Gross- und Kleinschreibung in Vorname, Nachname,
+        /// vollständigem Namen, E-Mail-Adresse und Mobiltelefonnummer.
+        /// </remarks>
+        /// <param name="searchText">Der Suchtext. Leerzeichen am Anfang und Ende werden ignoriert.</param>
+        /// <returns>
+        /// Die passenden Kunden oder alle nicht gelöschten Kunden, wenn der Suchtext leer ist.
+        /// </returns>
+        public List<Customer> Search(string searchText)
         {
             List<Customer> customers = GetAllActive();
 

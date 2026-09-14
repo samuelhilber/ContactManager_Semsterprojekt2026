@@ -1,9 +1,13 @@
 namespace SemsterProjekt
 {
+    /// <summary>
+    /// Enthält den Einstiegspunkt der Anwendung.
+    /// </summary>
     internal static class Program
     {
         /// <summary>
-        ///  The main entry point for the application.
+        /// Der Haupteinstiegspunkt der Anwendung. Initialisiert die Anwendungskonfiguration
+        /// und startet das Hauptfenster <see cref="Form1"/>.
         /// </summary>
         [STAThread]
         static void Main()

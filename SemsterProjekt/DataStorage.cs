@@ -6,6 +6,14 @@ using System.Text.Json.Serialization; //enthält JsonStringEnumConverter um Enum
 
 namespace SemsterProjekt
 {
+    /// <summary>
+    /// Speichert die Kontaktdaten als JSON-Datei und lädt sie wieder.
+    /// </summary>
+    /// <remarks>
+    /// Die Datei liegt im lokalen Anwendungsdatenordner des Benutzers unter
+    /// <c>%LOCALAPPDATA%\Semesterprojekt\contact-data.json</c>. Enums werden als Text
+    /// (z.B. "Marketing") statt als Zahl gespeichert, damit die Datei lesbar bleibt.
+    /// </remarks>
     internal class DataStorage
     {
         private readonly string _filepath;
@@ -19,6 +27,10 @@ namespace SemsterProjekt
             }
         };
 
+        /// <summary>
+        /// Initialisiert eine neue Instanz der <see cref="DataStorage"/>-Klasse und legt den Pfad
+        /// der JSON-Datei fest (siehe <see cref="FilePath"/>).
+        /// </summary>
         public DataStorage()
         {
             // sollte C:\Users\Benutzername\AppData\Local liefern und wird mit \SemsterProjekt\contact-data.json erweitert
@@ -27,6 +39,16 @@ namespace SemsterProjekt
             _filepath = Path.Combine(folderPath, "contact-data.json");
         }
 
+        /// <summary>
+        /// Speichert die übergebenen Kontaktdaten als JSON-Datei.
+        /// </summary>
+        /// <remarks>
+        /// Der Ordner wird bei Bedarf erstellt. Eine bestehende Datei wird vollständig überschrieben.
+        /// </remarks>
+        /// <param name="data">Die zu speichernden Mitarbeiter und Kunden.</param>
+        /// <exception cref="IOException">
+        /// Wird ausgelöst, wenn die Datei nicht geschrieben werden kann.
+        /// </exception>
         public void Save(ContactData data)
         {
             string? folderPath = Path.GetDirectoryName(_filepath);
@@ -41,6 +63,26 @@ namespace SemsterProjekt
             //Schreibt Text auf die Festplatte, Falls neue Mitarbeiter / Kunden ergänzt werden ersetzt der neue Text den alten
             File.WriteAllText(_filepath, json);
         }
+
+        /// <summary>
+        /// Lädt die Kontaktdaten aus der JSON-Datei.
+        /// </summary>
+        /// <remarks>
+        /// Beim Laden laufen alle Werte durch die Setter und werden dabei erneut validiert.
+        /// </remarks>
+        /// <returns>
+        /// Die geladenen Kontaktdaten oder ein leeres <see cref="ContactData"/>-Objekt,
+        /// wenn noch keine Datei vorhanden ist.
+        /// </returns>
+        /// <exception cref="JsonException">
+        /// Wird ausgelöst, wenn die JSON-Datei beschädigt ist.
+        /// </exception>
+        /// <exception cref="IOException">
+        /// Wird ausgelöst, wenn die Datei nicht gelesen werden kann.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Wird ausgelöst, wenn die Datei einen ungültigen Wert enthält, der von einem Setter abgelehnt wird.
+        /// </exception>
         public ContactData Load()
         {
             if (!File.Exists(_filepath)) // prüft ob Json datei bereits existiert
@@ -58,6 +100,9 @@ namespace SemsterProjekt
             return data ?? new ContactData();  // wenn data vorhanden ist gib data zurück, wenn null gib leeren Datenstamm zurück
         }
 
+        /// <summary>
+        /// Gibt den vollständigen Pfad der JSON-Datei zurück, in der die Kontaktdaten gespeichert werden.
+        /// </summary>
         public string FilePath
         {
             get => _filepath;

@@ -2,6 +2,13 @@ namespace SemsterProjekt;
 
 using System.Text.Json;
 
+/// <summary>
+/// Hauptfenster der Anwendung zum Erfassen, Bearbeiten, Suchen und Löschen von Mitarbeitern und Kunden.
+/// </summary>
+/// <remarks>
+/// Über die Radiobuttons wird zwischen Kunde und Mitarbeiter gewechselt; dabei werden nur die jeweils
+/// passenden Eingabefelder angezeigt. Jede erfolgreiche Änderung wird sofort in der JSON-Datei gespeichert.
+/// </remarks>
 public partial class Form1 : Form
 {
     private EmployeeManager _employeeManager = new EmployeeManager();
@@ -11,6 +18,10 @@ public partial class Form1 : Form
 
     private readonly DataStorage _datastorage = new DataStorage();
 
+    /// <summary>
+    /// Initialisiert eine neue Instanz der <see cref="Form1"/>-Klasse, richtet die Steuerelemente
+    /// (Dropdowns, Ausgabelisten, Ereignisse) ein und lädt die gespeicherten Kontaktdaten.
+    /// </summary>
     public Form1()
     {
         InitializeComponent();
