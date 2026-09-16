@@ -323,9 +323,9 @@
             // CmdSave
             // 
             CmdSave.Font = new Font("Arial Rounded MT Bold", 9.75F);
-            CmdSave.Location = new Point(672, 10);
+            CmdSave.Location = new Point(668, 10);
             CmdSave.Name = "CmdSave";
-            CmdSave.Size = new Size(70, 23);
+            CmdSave.Size = new Size(74, 23);
             CmdSave.TabIndex = 26;
             CmdSave.TabStop = false;
             CmdSave.Text = "Erstellen";

@@ -18,7 +18,7 @@ namespace SemsterProjekt
         /// <remarks>
         /// Enthält auch Mitarbeiter, die als gelöscht markiert sind (<see cref="Person.IsDeleted"/>).
         /// </remarks>
-        public List<Employee> Employees {  get; set; } = new List<Employee>();
+        public List<Employee> Employees { get; set; } = new List<Employee>();
 
         /// <summary>
         /// Gibt die Liste aller Kunden zurück oder legt sie fest.
