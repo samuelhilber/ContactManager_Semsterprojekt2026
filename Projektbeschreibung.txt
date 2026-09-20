@@ -1,0 +1,67 @@
+﻿========================================================================
+CONTACT MANAGER - SEMESTERPROJEKT 2026
+========================================================================
+
+Repository:   https://github.com/samuelhilber/ContactManager_Semsterprojekt2026
+
+GRUPPENMITGLIEDER
+-----------------
+
+- Samuel Hilber
+- Marin Tomic
+
+
+WAS FUNKTIONIERT
+----------------
+
+Erfassung von Mitarbeitern und Kunden ....................... ja
+  Alle Felder werden validiert (Name, Geburtsdatum, Telefon,
+  E-Mail, AHV-Nummer, PLZ, Anstellungsgrad, Ein-/Austritt).
+  Fehlerhafte Felder werden rot markiert, alle Fehler werden
+  auf einmal angezeigt.
+
+Mutieren von Mitarbeitern und Kunden ........................ ja
+  Klick auf einen Eintrag in der Liste lädt ihn in die Felder,
+  Speichern über den Button "Edit". Bei einem Fehler bleibt
+  der Datensatz unverändert.
+
+Aktivieren und Deaktivieren ................................. ja
+  Über die Checkbox "Aktiv". Inaktive Einträge werden grau und
+  mit "(inaktiv)" angezeigt.
+
+Löschen von Mitarbeitern und Kunden ......................... ja
+  Als Soft Delete: der Eintrag wird ausgeblendet, bleibt aber
+  in der JSON-Datei erhalten.
+
+Automatische Vergabe von Mitarbeiternummern ................. ja
+  Fortlaufend, wird erst nach erfolgreicher Validierung
+  vergeben und läuft nach einem Neustart korrekt weiter.
+
+Suchmöglichkeiten ........................................... ja
+  Live-Suche über Name, Vorname, E-Mail, Mobiltelefon und
+  Mitarbeiternummer. Mitarbeiter und Kunden sind in zwei
+  getrennten Listen.
+
+Automatisches Speichern und Laden des Datenstamms ........... ja
+  JSON-Datei unter %LOCALAPPDATA%\Semesterprojekt\contact-data.json.
+  Wird nach jeder Änderung automatisch gespeichert und beim
+  Start automatisch geladen. Fehlende oder beschädigte Dateien
+  werden abgefangen, das Programm stürzt nicht ab.
+
+
+
+WAS NICHT FUNKTIONIERT
+----------------------
+
+- Protokollieren von Notizen in Kundenkontakten inkl. Historie
+  wurde bewusst weggelassen und vorgängig so abgesprochen, da
+  unsere Gruppe nur aus zwei Personen besteht.
+
+- Die Validierung ist auf die Schweiz ausgelegt (PLZ 1000-9999,
+  zehnstellige Telefonnummern, AHV mit Präfix 756). Ausländische
+  Adressen lassen sich nicht erfassen. Wie im Auftragsbeschreib 
+  erläutert kann davon ausgegangen werden das alles Schweizer
+  Infos sind.
+
+
+========================================================================
